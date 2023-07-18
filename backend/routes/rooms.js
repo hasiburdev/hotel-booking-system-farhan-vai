@@ -1,6 +1,12 @@
 import express from "express";
-import { createRoom, deleteRoom, getAllRoom, getSingleRoom, updateRoom } from "../controllers/roomController.js";
-const router  = express.Router ();
+import {
+  createRoom,
+  deleteRoom,
+  getAllRoom,
+  getSingleRoom,
+  updateRoom,
+} from "../controllers/roomController.js";
+const router = express.Router();
 // router.get("/", (req,res)=>{
 // res.send("Hello,this is auth")
 // })
@@ -9,17 +15,15 @@ const router  = express.Router ();
 // res.send("Hello,this is auth register")
 // })
 
-router.post("/",createRoom);
-router.put("/:id",updateRoom);
+//create room
+router.post("/", createRoom);
+//update room
+router.put("/:id", updateRoom);
 //delete hotel
-
-router.delete("/:id",deleteRoom);
-
+router.delete("/:id", deleteRoom);
 //getSingle hotel
-
-router.get("/:id",getSingleRoom);
+router.get("/:id", getSingleRoom);
 //getAll hotel
+router.get("/", getAllRoom);
 
-router.get("/",getAllRoom);
-
-export default router
+export default router;

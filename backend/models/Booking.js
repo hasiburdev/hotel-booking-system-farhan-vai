@@ -9,10 +9,10 @@ const bookingSchema = new mongoose.Schema(
       type: String,
       // required: true,
     },
-hotelName :{
-type: String,
-required: true,
-},
+    hotelName: {
+      type: String,
+      required: true,
+    },
 
     fullName: {
       type: String,
@@ -21,17 +21,14 @@ required: true,
     guestSize: {
       type: Number,
       required: true,
-      
     },
     phone: {
       type: Number,
       required: true,
-      
     },
     bookAt: {
       type: Date,
-    required:true,
-      
+      required: true,
     },
   },
   { timestamps: true }
