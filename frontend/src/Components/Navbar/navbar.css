@@ -1,15 +1,16 @@
 :root {
-  --primaryColor:hsl(199,100%,33%);
-  --secondaryColor:hsl(187,85%,43%);
-  --gradientColor: linear-gradient (to right , hsl(187,85%,43%) , hsl(199,100%,33%));
-  --whiteColor:hsl(0,0%,100%);
-  --blackColor:hsl(201,33%,16%);
-  --whiteColorDream:hsl(0,0%,93%);
-  --textColor: hsl(0,0%,93%);
-  --greyText:rgb(190,190,190);
-  --inputColor:rgb(239,239,239);
-  --bodyColor:rgb(240,240,246);
-  --cardBG:rgb(225,225,235);
+  --primaryColor: hsl(199, 100%, 33%);
+  --secondaryColor: hsl(187, 85%, 43%);
+  --gradientColor: linear-gradient
+    (to right, hsl(187, 85%, 43%), hsl(199, 100%, 33%));
+  --whiteColor: hsl(0, 0%, 100%);
+  --blackColor: hsl(201, 33%, 16%);
+  --whiteColorDream: hsl(0, 0%, 93%);
+  --textColor: hsl(0, 0%, 93%);
+  --greyText: rgb(190, 190, 190);
+  --inputColor: rgb(239, 239, 239);
+  --bodyColor: rgb(240, 240, 246);
+  --cardBG: rgb(225, 225, 235);
 }
 
 .navBarSection .header {
@@ -60,19 +61,20 @@
   .navBarSection .header .navBar .navLists .navItem .navLink {
     color: var(--textColor);
     font-size: 0.9rem;
-    font-weight: 600;
+    font-weight: 500;
   }
   .navBarSection .header .navBar .navLists .navItem .navLink:hover {
-    color: var(--primaryColor);
+    opacity: 75%;
   }
   .navBarSection .header .navBar .navLists .headerBtns {
     flex-direction: column;
   }
   .navBarSection .header .navBar .navLists .headerBtns .btn {
     margin-top: 1rem;
+    color: white;
   }
   .navBarSection .header .navBar .navLists .headerBtns a {
-    font-weight: 600;
+    font-weight: 500;
     outline: none !important;
   }
   .navBarSection .header .navBar .navLists .headerBtns a:hover {
@@ -118,7 +120,8 @@
 }
 
 @media screen and (min-width: 769px) {
-  .navBarSection .toggleNavbar, .navBarSection .closeNavbar {
+  .navBarSection .toggleNavbar,
+  .navBarSection .closeNavbar {
     display: none;
   }
   .navBarSection .header {
@@ -137,14 +140,16 @@
     font-weight: 400;
   }
   .navBarSection .header .navBar .navLists .navItem .navLink:hover {
-    color: var(--primaryColor);
+    opacity: 75%;
   }
   .navBarSection .header .navBar .navLists .btn {
     margin-left: 1rem;
-  }
-  .navBarSection .header .navBar .navLists .btn a {
-    color: var(--whiteColor);
+    color: white;
     font-weight: 500;
+    transition: all 0.5s ease-in;
+  }
+  .navBarSection .header .navBar .navLists .btn:hover {
+    color: rgba(255, 255, 255, 0.75);
   }
   .navBarSection .header .navBar .navLists .loginBtn {
     background: none;

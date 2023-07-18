@@ -1,15 +1,16 @@
 :root {
-  --primaryColor:hsl(199,100%,33%);
-  --secondaryColor:hsl(187,85%,43%);
-  --gradientColor: linear-gradient (to right , hsl(187,85%,43%) , hsl(199,100%,33%));
-  --whiteColor:hsl(0,0%,100%);
-  --blackColor:hsl(201,33%,16%);
-  --whiteColorDream:hsl(0,0%,93%);
-  --textColor: hsl(0,0%,93%);
-  --greyText:rgb(190,190,190);
-  --inputColor:rgb(239,239,239);
-  --bodyColor:rgb(240,240,246);
-  --cardBG:rgb(225,225,235);
+  --primaryColor: hsl(199, 100%, 33%);
+  --secondaryColor: hsl(187, 85%, 43%);
+  --gradientColor: linear-gradient
+    (to right, hsl(187, 85%, 43%), hsl(199, 100%, 33%));
+  --whiteColor: hsl(0, 0%, 100%);
+  --blackColor: hsl(201, 33%, 16%);
+  --whiteColorDream: hsl(0, 0%, 93%);
+  --textColor: hsl(0, 0%, 93%);
+  --greyText: rgb(190, 190, 190);
+  --inputColor: rgb(239, 239, 239);
+  --bodyColor: rgb(240, 240, 246);
+  --cardBG: rgb(225, 225, 235);
   /* box-shadow:  0 2px 8px rgba(178,178,178,0.334); */
 }
 
@@ -18,7 +19,8 @@
   line-height: 1.5rem;
   padding-bottom: 0.5rem;
   text-align: center;
-  font-size: 1.5rem;
+  font-size: 2rem;
+  font-weight: 500;
 }
 .about .secContainer .mainContent {
   gap: 1rem;

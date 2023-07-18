@@ -1,15 +1,16 @@
 :root {
-  --primaryColor:hsl(199,100%,33%);
-  --secondaryColor:hsl(187,85%,43%);
-  --gradientColor: linear-gradient (to right , hsl(187,85%,43%) , hsl(199,100%,33%));
-  --whiteColor:hsl(0,0%,100%);
-  --blackColor:hsl(201,33%,16%);
-  --whiteColorDream:hsl(0,0%,93%);
-  --textColor: hsl(0,0%,93%);
-  --greyText:rgb(190,190,190);
-  --inputColor:rgb(239,239,239);
-  --bodyColor:rgb(240,240,246);
-  --cardBG:rgb(225,225,235);
+  --primaryColor: hsl(199, 100%, 33%);
+  --secondaryColor: hsl(187, 85%, 43%);
+  --gradientColor: linear-gradient
+    (to right, hsl(187, 85%, 43%), hsl(199, 100%, 33%));
+  --whiteColor: hsl(0, 0%, 100%);
+  --blackColor: hsl(201, 33%, 16%);
+  --whiteColorDream: hsl(0, 0%, 93%);
+  --textColor: hsl(0, 0%, 93%);
+  --greyText: rgb(190, 190, 190);
+  --inputColor: rgb(239, 239, 239);
+  --bodyColor: rgb(240, 240, 246);
+  --cardBG: rgb(225, 225, 235);
   /* box-shadow:  0 2px 8px rgba(178,178,178,0.334); */
 }
 
@@ -60,16 +61,24 @@
   color: var(--blackColor);
   font-weight: 700;
 }
-.footer .secContainer .footerLinks li:hover {
+.footer .secContainer .footerLinks li:hover a {
+  opacity: 75%;
   transform: translateX(10px);
 }
-.footer .secContainer .footerLinks li:hover a {
-  color: var(--primaryColor);
-}
-.footer .secContainer .footerLinks a, .footer .secContainer .footerLinks .phone, .footer .secContainer .footerLinks .email {
-  color: var(--textColor);
+.footer .secContainer .footerLinks a {
+  color: black;
+  opacity: 50%;
+  transition: all 0.5s ease-in;
   font-size: 13px;
-  font-weight: 500;
+  font-weight: 600;
+}
+.footer .secContainer .footerLinks .phone,
+.footer .secContainer .footerLinks .email {
+  color: black;
+  opacity: 50%;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: lowercase;
 }
 
 @media screen and (min-width: 448px) {
