@@ -10,11 +10,11 @@ import calcuateAvgRating from "../../utils/avgRating";
 const Room = ({ tour }) => {
   const navigate = useNavigate();
 
-  const handlesign = () => {
+  const handleBookNow = () => {
     navigate(`/roomList`);
   };
   const {
-    id,
+    _id: id,
     photo,
     title,
     desc,
@@ -30,8 +30,8 @@ const Room = ({ tour }) => {
   return (
     <div className="tour_card singleOffer">
       <Card>
-        <div className="  destImage">
-          <img src={photo} alt="" />
+        <div className="destImage">
+          <img src={photo} alt={title} />
           <span>{title}</span>
         </div>
       </Card>
@@ -46,11 +46,11 @@ const Room = ({ tour }) => {
         </div>
         <h5 className="tour_title">
           {" "}
-          <Link to={`/room/${id}`}> {title}</Link>
+          <Link to={`/room/${id}`}>{title}</Link>
         </h5>
         <div className="card_bottom d-flex align-items-center ustify-content-between mt-3 offerBody price flex">
           <h5>{price}</h5>
-          <button className=" btn flex" onClick={handlesign}>
+          <button className=" btn flex" onClick={handleBookNow}>
             {" "}
             Book Now
           </button>

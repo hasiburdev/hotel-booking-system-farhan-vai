@@ -1,5 +1,5 @@
 import "./hotel.css";
-import Navbar from "../../components/navbar/Navbar";
+import Navbar from "../../Components/Navbar/Navbar";
 
 import Footer from "../../Components/Footer/Footer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

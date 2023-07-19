@@ -23,6 +23,7 @@ import SearchItem from "./Components/searchItem/SearchItem";
 function App() {
   return (
     <BrowserRouter>
+      <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/hotels" element={<List />} />
@@ -37,6 +38,7 @@ function App() {
         <Route path="/roomList" element={<Roomsitems />} />
         <Route path="/hotels/search" element={<SerachResultList />} />
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
 }

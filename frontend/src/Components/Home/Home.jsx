@@ -81,7 +81,7 @@ const Home = () => {
 
   return (
     <div>
-      <Navbar />
+      {/* <Navbar /> */}
       <section className="home">
         {/* <div className="overlay"></div>
 <video src={video} muted autoPlay loop type="video/mp4"></video> */}
@@ -203,7 +203,7 @@ const Home = () => {
       <Popular />
       <Offer />
       <About />
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };

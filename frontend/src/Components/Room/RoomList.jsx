@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Container, Row, Col } from "reactstrap";
+import { Alert, Container, Row, Col } from "reactstrap";
 import Data from "../../assets/Data/tours";
 import CommonSection from "../CommonSection/CommonSection";
 import Navbar from "../Navbar/Navbar";
@@ -32,6 +32,16 @@ const RoomList = () => {
       <section>
         <Container>
           <Row>
+            {isError && (
+              <Alert color="danger" className="text-center">
+                Oops! Something went wrong!
+              </Alert>
+            )}
+            {hotelList.length === 0 && !isError && (
+              <Alert color="secondary">
+                There are currently no hotel entries.
+              </Alert>
+            )}
             {hotelList?.map((tour, index) => (
               <Col lg="3" className="mb-4" key={index}>
                 <Room tour={tour} />

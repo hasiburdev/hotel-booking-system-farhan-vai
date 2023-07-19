@@ -122,4 +122,12 @@
 
 .review_item span {
   font-weight: 500;
+}
+
+.hoteldetails {
+  margin-bottom: 64px;
+}
+
+.hotel-details-error {
+  margin: 3rem;
 }/*# sourceMappingURL=Details.css.map */

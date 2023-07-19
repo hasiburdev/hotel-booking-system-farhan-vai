@@ -59,7 +59,7 @@ const Book = ({ tour, avgRating }) => {
               onChange={handleChange}
             />
             <input
-              type="number "
+              type="number"
               placeholder="Guest"
               id="guestSize"
               required
@@ -71,7 +71,7 @@ const Book = ({ tour, avgRating }) => {
       <div className="booking_bottom">
         <ListGroup>
           <ListGroupItem className="border-0  px-0">
-            <h5 className="d-flex align_item-center gap-1"> ${price}</h5>
+            <h5 className="d-flex align_item-center gap-1">Price</h5>
             <span>${price}</span>
           </ListGroupItem>
           <ListGroupItem className="border-0  px-0">
