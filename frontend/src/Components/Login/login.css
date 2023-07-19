@@ -1,15 +1,16 @@
 :root {
-  --primaryColor:hsl(199,100%,33%);
-  --secondaryColor:hsl(187,85%,43%);
-  --gradientColor: linear-gradient (to right , hsl(187,85%,43%) , hsl(199,100%,33%));
-  --whiteColor:hsl(0,0%,100%);
-  --blackColor:hsl(201,33%,16%);
-  --whiteColorDream:hsl(0,0%,93%);
+  --primaryColor: hsl(199, 100%, 33%);
+  --secondaryColor: hsl(187, 85%, 43%);
+  --gradientColor: linear-gradient
+    (to right, hsl(187, 85%, 43%), hsl(199, 100%, 33%));
+  --whiteColor: hsl(0, 0%, 100%);
+  --blackColor: hsl(201, 33%, 16%);
+  --whiteColorDream: hsl(0, 0%, 93%);
   --text-color: #6e7074;
-  --greyText:rgb(190,190,190);
-  --inputColor:rgb(239,239,239);
-  --bodyColor:rgb(240,240,246);
-  --cardBG:rgb(225,225,235);
+  --greyText: rgb(190, 190, 190);
+  --inputColor: rgb(239, 239, 239);
+  --bodyColor: rgb(240, 240, 246);
+  --cardBG: rgb(225, 225, 235);
   /* box-shadow:  0 2px 8px rgba(178,178,178,0.334); */
 }
 
@@ -75,7 +76,7 @@
 .auth_btn {
   background: var(--greyText);
   width: 100%;
-  color: var(--gradientColor);
+  color: white !important;
 }
 
 .login_form p {
@@ -89,4 +90,8 @@
   text-decoration: none;
   margin-left: 5px;
   font-weight: 500;
+}
+
+.login {
+  margin-bottom: 4rem;
 }/*# sourceMappingURL=login.css.map */

@@ -1,1 +1,7 @@
-/*# sourceMappingURL=register.css.map */
+.register {
+  margin-top: 4rem;
+  margin-bottom: 6rem;
+}
+.register .auth_btn {
+  color: white;
+}/*# sourceMappingURL=register.css.map */

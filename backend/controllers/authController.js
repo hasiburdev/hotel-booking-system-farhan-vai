@@ -5,6 +5,7 @@ import jwt from "jsonwebtoken";
 import { json } from "express";
 
 export const register = async (req, res) => {
+  console.log(req.body);
   try {
     //hasing password
     const salt = bcrypt.genSaltSync(10);
@@ -24,6 +25,7 @@ export const register = async (req, res) => {
       message: "Successfully created",
     });
   } catch (err) {
+    console.log(err);
     res.status(500).json({
       success: false,
       message: "Failed to create try again later",
