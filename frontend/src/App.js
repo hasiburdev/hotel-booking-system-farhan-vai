@@ -18,6 +18,7 @@ import Room from "./Components/Room/Room";
 import RoomList from "./Components/Room/RoomList";
 import Roomsitems from "./Rooms/Roomsitems";
 import SerachResultList from "./pages/SerachResultList";
+import Dashboard from "./pages/Dashboard/Dashboard";
 import SearchItem from "./Components/searchItem/SearchItem";
 
 function App() {
@@ -37,6 +38,7 @@ function App() {
         <Route path="/room/:id" element={<Details />} />
         <Route path="/roomList" element={<Roomsitems />} />
         <Route path="/hotels/search" element={<SerachResultList />} />
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
       <Footer />
     </BrowserRouter>
