@@ -10,7 +10,7 @@ import {
   updateHotel,
 } from "../controllers/hotelController.js";
 
-import { verifyAdmin } from "../utils/verifyToken.js";
+import { verifyAdmin, verifyToken } from "../utils/verifyToken.js";
 const router = express.Router();
 // router.get("/", (req,res)=>{
 // res.send("Hello,this is auth")
@@ -21,11 +21,11 @@ const router = express.Router();
 // })
 
 //create hotel
-router.post("/", verifyAdmin, createHotel);
+router.post("/", verifyToken, verifyAdmin, createHotel);
 //update hotel
-router.put("/:id", verifyAdmin, updateHotel);
+router.put("/:id", verifyToken, verifyAdmin, updateHotel);
 //delete hotel
-router.delete("/:id", verifyAdmin, deleteHotel);
+router.delete("/:id", verifyToken, verifyAdmin, deleteHotel);
 //getSingle hotel
 router.get("/:id", getSingleHotel);
 //getAll hotel
