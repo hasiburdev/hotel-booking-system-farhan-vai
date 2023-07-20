@@ -4,7 +4,7 @@ export const createHotel = async (req, res) => {
   const newHotel = new Hotel(req.body);
   try {
     const savedHotel = await newHotel.save();
-    res.status(200).json({
+    res.status(201).json({
       success: true,
       message: "Successfully created",
       data: savedHotel,
@@ -81,10 +81,9 @@ export const getAllHotel = async (req, res) => {
   const page = parseInt(req.query.page);
 
   try {
-    const hotels = await Hotel.find({})
-      .populate("reviews")
-      .skip(page * 8)
-      .limit(8);
+    const hotels = await Hotel.find({}).populate("reviews");
+    // .skip(page * 8)
+    // .limit(8);
 
     res.status(200).json({
       success: true,

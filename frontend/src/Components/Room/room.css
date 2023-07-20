@@ -1,3 +1,6 @@
+.tour_card {
+  overflow: hidden;
+}
 .tour_card .destImage {
   position: relative;
   height: 200px;

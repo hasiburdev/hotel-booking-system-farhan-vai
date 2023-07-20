@@ -7,6 +7,7 @@ import CommonSection from "../CommonSection/CommonSection";
 import "./login.css";
 import { postData } from "../../utils/api";
 import { BASE_URL } from "../../utils/config";
+import { setCookie } from "../../utils/cookie";
 
 const Login = () => {
   const [credentials, setCredentials] = useState({
@@ -28,6 +29,8 @@ const Login = () => {
     try {
       const data = await postData(`${BASE_URL}/auth/login`, credentials);
       console.log(data);
+      console.log()
+      // setCookie('accessToken', data.token)
       localStorage.setItem("authHotelBooking", JSON.stringify(data));
       if (data.token) {
         navigate("/");

@@ -1,3 +1,6 @@
+import { useState } from "react";
+import { BASE_URL } from "../../utils/config";
+import { postData } from "../../utils/api";
 import {
   Form,
   FormGroup,
@@ -7,10 +10,67 @@ import {
   FormText,
   Button,
 } from "reactstrap";
+import { convertBase64 } from "../../utils/convertImage";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+
 const AddHotel = () => {
-  const handleSubmit = (e) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [state, setState] = useState({
+    title: "",
+    city: "",
+    desc: "",
+    address: "",
+    distance: 0,
+    photo: null,
+    price: 0,
+    maxGroupSize: 0,
+    featured: false,
+  });
+const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    if (e.target.id === "featured") {
+      console.log(e.target.checked);
+      setState((prevState) => ({
+        ...prevState,
+        [e.target.id]: e.target.checked,
+      }));
+    } else if (e.target.id === "photo") {
+      const file = e.target.files[0];
+      convertBase64(file).then((base64) => {
+        setState((prevState) => ({
+          ...prevState,
+          [e.target.id]: base64,
+        }));
+      });
+    } else {
+      setState((prevState) => ({
+        ...prevState,
+        [e.target.id]: e.target.value,
+      }));
+    }
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Hello");
+    setIsLoading(true);
+    console.log(state);
+    try {
+      const data = await postData(`${BASE_URL}/hotels`, state);
+      if (data?.successs) {
+        toast.success("Successfully added hotel!");
+        navigate('/hotelList')
+      } else {
+        toast.error(data?.message ?? "Something went wrong!")
+      }
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+      toast.error("Something went wrong!")
+    } finally {
+      setIsLoading(false);
+    }
   };
   return (
     <Form onSubmit={handleSubmit}>
@@ -20,6 +80,7 @@ const AddHotel = () => {
         </Label>
         <Col sm={10}>
           <Input
+            onChange={handleChange}
             id="title"
             name="title"
             placeholder="Enter title"
@@ -33,8 +94,9 @@ const AddHotel = () => {
         </Label>
         <Col sm={10}>
           <Input
-            id="exampleText"
+            id="desc"
             name="desc"
+            onChange={handleChange}
             type="textarea"
             placeholder="Enter description"
           />
@@ -45,7 +107,13 @@ const AddHotel = () => {
           City
         </Label>
         <Col sm={10}>
-          <Input id="city" name="city" placeholder="Enter city" type="text" />
+          <Input
+            id="city"
+            name="city"
+            onChange={handleChange}
+            placeholder="Enter city"
+            type="text"
+          />
         </Col>
       </FormGroup>
       <FormGroup row>
@@ -56,6 +124,7 @@ const AddHotel = () => {
           <Input
             id="address"
             name="address"
+            onChange={handleChange}
             placeholder="Enter address"
             type="text"
           />
@@ -68,6 +137,7 @@ const AddHotel = () => {
         <Col sm={10}>
           <Input
             id="distance"
+            onChange={handleChange}
             name="distance"
             placeholder="Enter distance"
             type="number"
@@ -81,6 +151,7 @@ const AddHotel = () => {
         <Col sm={10}>
           <Input
             id="price"
+            onChange={handleChange}
             name="price"
             placeholder="Enter price"
             type="number"
@@ -93,6 +164,7 @@ const AddHotel = () => {
         </Label>
         <Col sm={10}>
           <Input
+            onChange={handleChange}
             id="maxGroupSize"
             name="maxGroupSize"
             placeholder="Enter maximum group size"
@@ -105,7 +177,13 @@ const AddHotel = () => {
           File
         </Label>
         <Col sm={10}>
-          <Input id="photo" name="photo" type="file" />
+          <Input
+            id="photo"
+            name="photo"
+            onChange={handleChange}
+            type="file"
+            accept="image/png, image/jpeg"
+          />
           <FormText>Upload a good quality picture of the hotel</FormText>
         </Col>
       </FormGroup>
@@ -119,19 +197,27 @@ const AddHotel = () => {
           }}
         >
           <FormGroup check>
-            <Input id="featured" name="featured" type="checkbox" />
+            <Input
+              id="featured"
+              name="featured"
+              type="checkbox"
+              onChange={handleChange}
+            />
             <Label check>Check this</Label>
           </FormGroup>
         </Col>
       </FormGroup>
       <FormGroup check row>
         <Col
+          className="px-0"
           sm={{
             offset: 2,
             size: 10,
           }}
         >
-          <Button>Submit</Button>
+          <Button disabled={isLoading} color="primary">
+            {isLoading ? "Loading..." : "Create Hotel"}
+          </Button>
         </Col>
       </FormGroup>
     </Form>

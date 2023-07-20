@@ -21,9 +21,13 @@ import SerachResultList from "./pages/SerachResultList";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import SearchItem from "./Components/searchItem/SearchItem";
 
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 function App() {
   return (
     <BrowserRouter>
+      <ToastContainer />
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
