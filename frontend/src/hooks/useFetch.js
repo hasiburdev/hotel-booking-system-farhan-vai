@@ -1,3 +1,4 @@
+import { fi } from "date-fns/locale";
 import { useState, useEffect } from "react";
 
 const useFetch = (url) => {
@@ -17,6 +18,7 @@ const useFetch = (url) => {
         setData(result.data);
       } catch (err) {
         setError(err.message);
+      } finally {
         setLoading(false);
       }
     };

@@ -76,27 +76,54 @@ export const getSingleHotel = async (req, res) => {
   }
 };
 //getAll Hotels
-export const getAllHotel = async (req, res) => {
-  //pagination
-  const page = parseInt(req.query.page);
+export const getAllHotels = async (req, res) => {
+  console.log(req.query);
+  if (req.query.length <= 0) {
+    const page = parseInt(req.query.page);
 
-  try {
-    const hotels = await Hotel.find({}).populate("reviews");
-    // .skip(page * 8)
-    // .limit(8);
+    try {
+      const hotels = await Hotel.find({}).populate("reviews");
+      // .skip(page * 8)
+      // .limit(8);
 
-    res.status(200).json({
-      success: true,
-      count: hotels.length,
-      message: "Successfull",
-      data: hotels,
-    });
-  } catch (err) {
-    res.status(404).json({
-      success: false,
-      message: "Not found",
-    });
+      res.status(200).json({
+        success: true,
+        count: hotels.length,
+        message: "Successfull",
+        data: hotels,
+      });
+    } catch (err) {
+      res.status(404).json({
+        success: false,
+        message: "Not found",
+      });
+    }
+  } else {
+    try {
+      const city = new RegExp(req.query.city, "i"); //here i is case sensitive
+      const distance = parseInt(req.query.distance);
+      const maxGroupSize = parseInt(req.query.maxGroupSize);
+      const hotels = await Hotel.find({
+        city,
+        distance: { $gte: distance },
+        maxGroupSize: { $gte: maxGroupSize },
+      }).populate("reviews");
+
+      res.status(200).json({
+        success: true,
+
+        message: "Successfull",
+        data: hotels,
+      });
+    } catch (err) {
+      console.log(err);
+      res.status(404).json({
+        success: false,
+        message: "Not found",
+      });
+    }
   }
+  //pagination
 };
 
 //get hotel by search

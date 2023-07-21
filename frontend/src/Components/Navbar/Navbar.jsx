@@ -74,20 +74,20 @@ const Navbar = () => {
                 Contacts
               </Link>
             </li>
-            {user?.role === "admin" && (
+            {(user?.role === "admin" || user?.role === "user") && (
               <li className="navItem">
                 <Link to="/dashboard" className="navLink">
                   Dashboard
                 </Link>
               </li>
             )}
-            {user?.role === "user" && (
+            {/* {(user?.role === "user" || user?.role === "admin") && (
               <li className="navItem">
                 <Link to="/my-bookings" className="navLink">
                   My Bookings
                 </Link>
               </li>
-            )}
+            )} */}
             {!user ? (
               <div className="headerBtns flex">
                 <button className="btn loginBtn" onClick={handleLogin}>

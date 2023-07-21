@@ -5,25 +5,34 @@ import CommonSection from "../CommonSection/CommonSection";
 import Navbar from "../Navbar/Navbar";
 import Room from "./Room";
 import { BASE_URL } from "../../utils/config";
+import { useSearchParams } from "react-router-dom";
+import useFetch from "../../hooks/useFetch";
 
 const RoomList = () => {
-  const [hotelList, setHotelList] = useState([]);
-  const [isError, setIsError] = useState(false);
+  const searchParams = useSearchParams();
+  console.log(searchParams[0].toString());
+
   //Fetch data here
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(`${BASE_URL}/hotels/`);
-        const data = await response.json();
-        setHotelList(data.data);
-        console.log(data);
-      } catch (error) {
-        console.error(error);
-        setIsError(true);
-      }
-    };
-    fetchData();
-  }, []);
+  const { data, error, loading } = useFetch(
+    `${BASE_URL}/hotels?${searchParams[0].toString()}`
+  );
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await fetch(
+  //         `${BASE_URL}/hotels?${searchParams[0].toString()}`
+  //       );
+  //       const data = await response.json();
+  //       setHotelList(data.data);
+  //       console.log(data);
+  //     } catch (error) {
+  //       console.error(error);
+  //       setIsError(true);
+  //     }
+  //   };
+  //   fetchData();
+  // }, []);
 
   return (
     <>
@@ -32,21 +41,27 @@ const RoomList = () => {
       <section>
         <Container>
           <Row>
-            {isError && (
+            {error && (
               <Alert color="danger" className="text-center">
                 Oops! Something went wrong!
               </Alert>
             )}
-            {hotelList.length === 0 && !isError && (
+            {data?.length === 0 && !error && !loading && (
               <Alert color="secondary">
                 There are currently no hotel entries.
               </Alert>
             )}
-            {hotelList?.map((tour, index) => (
-              <Col lg="3" className="mb-4" key={index}>
-                <Room tour={tour} />
-              </Col>
-            ))}
+            {loading && !error && (
+              <Alert color="secondary" className="text-center">
+                Loading hotel list...
+              </Alert>
+            )}
+            {data &&
+              data?.map((tour, index) => (
+                <Col lg="3" className="mb-4" key={index}>
+                  <Room tour={tour} />
+                </Col>
+              ))}
           </Row>
         </Container>
       </section>

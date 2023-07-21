@@ -27,7 +27,7 @@ const AddHotel = () => {
     maxGroupSize: 0,
     featured: false,
   });
-const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     if (e.target.id === "featured") {
@@ -60,20 +60,21 @@ const navigate = useNavigate();
       const data = await postData(`${BASE_URL}/hotels`, state);
       if (data?.successs) {
         toast.success("Successfully added hotel!");
-        navigate('/hotelList')
+        navigate("/hotelList");
       } else {
-        toast.error(data?.message ?? "Something went wrong!")
+        toast.error(data?.message ?? "Something went wrong!");
       }
       console.log(data);
     } catch (error) {
       console.error(error);
-      toast.error("Something went wrong!")
+      toast.error("Something went wrong!");
     } finally {
       setIsLoading(false);
     }
   };
   return (
     <Form onSubmit={handleSubmit}>
+      <h1 className="text-center mb-4">Add a new Hotel</h1>
       <FormGroup row>
         <Label for="title" sm={2}>
           Title

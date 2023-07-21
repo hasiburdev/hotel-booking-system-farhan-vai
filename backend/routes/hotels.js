@@ -2,7 +2,7 @@ import express from "express";
 import {
   createHotel,
   deleteHotel,
-  getAllHotel,
+  getAllHotels,
   getFeaturedHotel,
   getHotelBySearch,
   getHotelCount,
@@ -29,10 +29,10 @@ router.delete("/:id", verifyToken, verifyAdmin, deleteHotel);
 //getSingle hotel
 router.get("/:id", getSingleHotel);
 //getAll hotel
-router.get("/", getAllHotel);
+router.get("/", getAllHotels);
 //get all hotels by search
-router.get("/search/getHotelBySearch", getHotelBySearch);
-router.get("/search/getFeaturedHotels", getFeaturedHotel);
-router.get("/search/getHotelCount", getHotelCount);
+// router.get("/search/getHotelBySearch", getHotelBySearch);
+// router.get("/search/getFeaturedHotels", getFeaturedHotel);
+// router.get("/search/getHotelCount", getHotelCount);
 
 export default router;

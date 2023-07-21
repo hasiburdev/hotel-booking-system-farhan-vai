@@ -6,6 +6,7 @@ import "./room.css";
 // import "../Offers/offer.css"
 
 import calcuateAvgRating from "../../utils/avgRating";
+import PayWithStripe from "../PayWithStripe/PayWithStripe";
 
 const Room = ({ tour }) => {
   const navigate = useNavigate();
@@ -51,8 +52,7 @@ const Room = ({ tour }) => {
         <div className="card_bottom d-flex align-items-center ustify-content-between mt-3 offerBody price flex">
           <h5>{price}</h5>
           <button className=" btn flex" onClick={handleBookNow}>
-            {" "}
-            Book Now
+            Purchase
           </button>
         </div>
       </CardBody>

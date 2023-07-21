@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import "./book.css";
-import { Form, FormGroup, ListGroup, ListGroupItem, Button } from "reactstrap";
 import { AiFillStar } from "react-icons/ai";
-import { useNavigate } from "react-router-dom";
+import { Button, ListGroup, ListGroupItem } from "reactstrap";
+import PayWithStripe from "../PayWithStripe/PayWithStripe";
+import "./book.css";
 
 const Book = ({ tour, avgRating }) => {
   const { title, desc, price, reviews, address, city, distance, maxGroupSize } =
     tour;
-  const navigate = useNavigate();
+  const [modal, setModal] = useState(false);
   const [credentials, setCredentials] = useState({
     userId: "01",
     UserEmail: "example@gmail.com",
@@ -23,6 +23,7 @@ const Book = ({ tour, avgRating }) => {
   const handleClick = (e) => {
     e.preventDefault();
     console.log(credentials);
+    setModal((prevState) => !prevState);
   };
 
   const serviceFee = 10;
@@ -38,7 +39,7 @@ const Book = ({ tour, avgRating }) => {
           {avgRating === 0 ? null : avgRating} ({reviews?.length})
         </span>
       </div>
-      <div className="booking_form">
+      {/* <div className="booking_form">
         <h5>INFORMATION</h5>
         <Form className="booking_info-form" onSubmit={handleClick}>
           <FormGroup>
@@ -67,7 +68,7 @@ const Book = ({ tour, avgRating }) => {
             />
           </FormGroup>
         </Form>
-      </div>
+      </div> */}
       <div className="booking_bottom">
         <ListGroup>
           <ListGroupItem className="border-0  px-0">
@@ -83,9 +84,17 @@ const Book = ({ tour, avgRating }) => {
             <span>${totalAmount}</span>
           </ListGroupItem>
         </ListGroup>
-        <Button className="btn primary_btn w-100 mt-4" onClick={handleClick}>
-          Book Now
+        <Button className=" w-100 mt-4" onClick={handleClick}>
+          Book Room
         </Button>
+
+        <PayWithStripe
+          setModal={setModal}
+          modal={modal}
+          price={totalAmount}
+          guestSize={maxGroupSize}
+          hotelName={title}
+        />
       </div>
     </div>
   );

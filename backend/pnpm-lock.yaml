@@ -35,6 +35,9 @@ dependencies:
   sslcommerz-lts:
     specifier: ^1.1.0
     version: 1.1.0
+  stripe:
+    specifier: ^12.14.0
+    version: 12.14.0
 
 packages:
 
@@ -900,6 +903,14 @@ packages:
   /statuses@2.0.1:
     resolution: {integrity: sha512-RwNA9Z/7PrK06rYLIzFMlaF+l73iwpzsqRIFgbMLbTcLD6cOao82TaWefPXQvB2fOC4AjuYSEndS7N/mTCbkdQ==}
     engines: {node: '>= 0.8'}
+    dev: false
+
+  /stripe@12.14.0:
+    resolution: {integrity: sha512-WrDlYH1p5jliY7uzSU5nLDY7OCIeRe6FkC0hhScpTGwMthP/Muk38WXGeggjDHKeXAGCs43jUheZ7Ud/NEAJdg==}
+    engines: {node: '>=12.*'}
+    dependencies:
+      '@types/node': 20.4.2
+      qs: 6.11.0
     dev: false
 
   /supports-color@5.5.0:

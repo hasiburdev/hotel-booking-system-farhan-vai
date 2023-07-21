@@ -20,6 +20,7 @@ import Roomsitems from "./Rooms/Roomsitems";
 import SerachResultList from "./pages/SerachResultList";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import SearchItem from "./Components/searchItem/SearchItem";
+import { AuthProvider } from "./hooks/useAuth";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -27,24 +28,26 @@ import "react-toastify/dist/ReactToastify.css";
 function App() {
   return (
     <BrowserRouter>
-      <ToastContainer />
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/hotels" element={<List />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/offer" element={<Offer />} />
-        <Route path="/book" element={<Book />} />
-        <Route path="/room" element={<Room />} />
-        <Route path="/hotelList" element={<RoomList />} />
-        {/* <Route path="/hotels/:id" element={<Hotel/>}/> */}
-        <Route path="/room/:id" element={<Details />} />
-        <Route path="/roomList" element={<Roomsitems />} />
-        <Route path="/hotels/search" element={<SerachResultList />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-      </Routes>
-      <Footer />
+      <AuthProvider>
+        <ToastContainer />
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/hotels" element={<List />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/offer" element={<Offer />} />
+          <Route path="/book" element={<Book />} />
+          <Route path="/room" element={<Room />} />
+          <Route path="/hotelList" element={<RoomList />} />
+          <Route path="/hotels/:id" element={<Hotel/>}/>
+          <Route path="/room/:id" element={<Details />} />
+          <Route path="/roomList" element={<Roomsitems />} />
+          <Route path="/hotels/search" element={<SerachResultList />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+        </Routes>
+        <Footer />
+      </AuthProvider>
     </BrowserRouter>
   );
 }
