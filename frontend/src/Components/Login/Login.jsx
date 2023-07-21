@@ -8,6 +8,7 @@ import "./login.css";
 import { postData } from "../../utils/api";
 import { BASE_URL } from "../../utils/config";
 import { setCookie } from "../../utils/cookie";
+import useAuth from "../../hooks/useAuth";
 
 const Login = () => {
   const [credentials, setCredentials] = useState({
@@ -17,6 +18,7 @@ const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const navigate = useNavigate();
+  const {user, updateUser} = useAuth();
 
   const handleChange = (e) => {
     setCredentials((prev) => ({ ...prev, [e.target.id]: e.target.value }));
@@ -31,7 +33,8 @@ const Login = () => {
       console.log(data);
       console.log()
       // setCookie('accessToken', data.token)
-      localStorage.setItem("authHotelBooking", JSON.stringify(data));
+      // localStorage.setItem("authHotelBooking", JSON.stringify(data));
+      updateUser(data)
       if (data.token) {
         navigate("/");
       } else {

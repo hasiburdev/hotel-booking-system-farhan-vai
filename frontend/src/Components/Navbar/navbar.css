@@ -14,6 +14,10 @@
   --greyBG: rgb(56, 56, 56);
 }
 
+.navBarSection .userInfo p {
+  color: white;
+  margin-bottom: 0;
+}
 .navBarSection .header {
   position: fixed;
   top: 0;

@@ -3,10 +3,12 @@ import "./navbar.css";
 import { FaHotel } from "react-icons/fa";
 import { AiFillCloseCircle } from "react-icons/ai";
 import { TbGridDots } from "react-icons/tb";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const { user, updateUser } = useAuth();
   //toggle
   const [active, setActive] = useState("navBar");
   const showNav = () => {
@@ -28,6 +30,9 @@ const Navbar = () => {
   };
   window.addEventListener("scroll", addBg);
 
+  const handleLogOut = () => {
+    updateUser("");
+  };
   const handleLogin = () => {
     navigate("/login");
   };
@@ -50,33 +55,56 @@ const Navbar = () => {
         <div className={active}>
           <ul className="navLists flex">
             <li className="navItem">
-              <a href="/" className="navLink">
+              <Link to="/" className="navLink">
                 Home
-              </a>{" "}
+              </Link>{" "}
             </li>
             <li className="navItem">
-              <a href="/offer" className="navLink">
+              <Link to="/offer" className="navLink">
                 Packages
-              </a>{" "}
+              </Link>{" "}
             </li>
             <li className="navItem">
-              <a href="/hotelList" className="navLink">
+              <Link to="/hotelList" className="navLink">
                 Hotels
-              </a>{" "}
+              </Link>{" "}
             </li>
             <li className="navItem">
-              <a href="#" className="navLink">
+              <Link to="/contact" className="navLink">
                 Contacts
-              </a>{" "}
+              </Link>
             </li>
-            <div className="headerBtns flex">
-              <button className="btn loginBtn" onClick={handleLogin}>
-                Login
-              </button>
-              <button className="btn" onClick={handleSignUp}>
-                Sign Up
-              </button>
-            </div>
+            {user?.role === "admin" && (
+              <li className="navItem">
+                <Link to="/dashboard" className="navLink">
+                  Dashboard
+                </Link>
+              </li>
+            )}
+            {user?.role === "user" && (
+              <li className="navItem">
+                <Link to="/my-bookings" className="navLink">
+                  My Bookings
+                </Link>
+              </li>
+            )}
+            {!user ? (
+              <div className="headerBtns flex">
+                <button className="btn loginBtn" onClick={handleLogin}>
+                  Login
+                </button>
+                <button className="btn" onClick={handleSignUp}>
+                  Sign Up
+                </button>
+              </div>
+            ) : (
+              <div className="flex items-center userInfo">
+                <p className="">{user.data?.email}</p>
+                <button className="btn" onClick={handleLogOut}>
+                  Log Out
+                </button>
+              </div>
+            )}{" "}
           </ul>
 
           <div onClick={removeNav} className="closeNavbar">
