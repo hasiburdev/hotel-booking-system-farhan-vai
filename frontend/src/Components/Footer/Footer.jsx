@@ -5,7 +5,6 @@ import { ImFacebook } from "react-icons/im";
 import { BsTwitter } from "react-icons/bs";
 import { AiFillInstagram } from "react-icons/ai";
 import Aos from "aos";
-// import "aos/dist/aos.css";
 
 const Footer = () => {
   useEffect(() => {

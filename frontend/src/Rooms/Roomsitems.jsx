@@ -11,7 +11,6 @@ import img1 from "../assets/calofonia.webp";
 import img2 from "../assets/calofonia.webp";
 
 import Aos from "aos";
-import "aos/dist/aos.css";
 import useFetch from "../hooks/useFetch";
 import { BASE_URL } from "../utils/config";
 import { Alert } from "reactstrap";
@@ -67,56 +66,58 @@ const Roomsitems = () => {
             <Alert>No room found!</Alert>
           )}
           {data &&
-            data.map(({ _id: id, photo, destTitle, location, price, bednumber }) => {
-              return (
-                <div
-                  data-aos="fade-up"
-                  data-aos-duration="3000"
-                  className="singleOffer"
-                  key={id}
-                >
-                  <div className="destImage">
-                    <img src={photo} alt={destTitle} />
-                    {/* <span className="discount">
+            data.map(
+              ({ _id: id, photo, destTitle, location, price, bednumber }) => {
+                return (
+                  <div
+                    data-aos="fade-up"
+                    data-aos-duration="3000"
+                    className="singleOffer"
+                    key={id}
+                  >
+                    <div className="destImage">
+                      <img src={photo} alt={destTitle} />
+                      {/* <span className="discount">
             30% off
             </span> */}
+                    </div>
+                    <div className="offerBody">
+                      <div className="price flex">
+                        <h4>{price}</h4>
+                        <span className="status">Available</span>
+                      </div>
+                      <div className="amentities flex">
+                        <div className="singleAmenity flex">
+                          <MdKingBed className="icon" />
+                          <small>{bednumber}</small>
+                        </div>
+                        <div className="singleAmenity flex">
+                          <MdBathtub className="icon" />
+                          <small>1 Bath</small>
+                        </div>
+                        <div className="singleAmenity flex">
+                          <FaWifi className="icon" />
+                          <small>Wifi</small>
+                        </div>
+                        <div className="singleAmenity flex">
+                          <MdAirportShuttle className="icon" />
+                          <small>Shuttle</small>
+                        </div>
+                      </div>
+                      <div className="location flex">
+                        <MdLocationOn className="icon" />
+                        <small className="location">{location}</small>
+                      </div>
+                      <button className="btn flex">
+                        {" "}
+                        View Details
+                        <BsArrowRightShort className="icon" />
+                      </button>
+                    </div>
                   </div>
-                  <div className="offerBody">
-                    <div className="price flex">
-                      <h4>{price}</h4>
-                      <span className="status">Available</span>
-                    </div>
-                    <div className="amentities flex">
-                      <div className="singleAmenity flex">
-                        <MdKingBed className="icon" />
-                        <small>{bednumber}</small>
-                      </div>
-                      <div className="singleAmenity flex">
-                        <MdBathtub className="icon" />
-                        <small>1 Bath</small>
-                      </div>
-                      <div className="singleAmenity flex">
-                        <FaWifi className="icon" />
-                        <small>Wifi</small>
-                      </div>
-                      <div className="singleAmenity flex">
-                        <MdAirportShuttle className="icon" />
-                        <small>Shuttle</small>
-                      </div>
-                    </div>
-                    <div className="location flex">
-                      <MdLocationOn className="icon" />
-                      <small className="location">{location}</small>
-                    </div>
-                    <button className="btn flex">
-                      {" "}
-                      View Details
-                      <BsArrowRightShort className="icon" />
-                    </button>
-                  </div>
-                </div>
-              );
-            })}
+                );
+              }
+            )}
         </div>
       </div>
     </section>

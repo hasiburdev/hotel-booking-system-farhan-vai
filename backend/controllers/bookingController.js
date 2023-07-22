@@ -54,3 +54,20 @@ export const getAllBooking = async (req, res) => {
     });
   }
 };
+
+export const deleteBooking = async (req, res) => {
+  try {
+    const id = req.params.id;
+    await Booking.findByIdAndDelete(id);
+    res.status(200).json({
+      success: true,
+      message: "Successfully deleted",
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
+};

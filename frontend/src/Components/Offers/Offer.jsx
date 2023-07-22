@@ -11,7 +11,6 @@ import img1 from "../../assets/Bali.jpg";
 import img2 from "../../assets/Bali.jpg";
 
 import Aos from "aos";
-import "aos/dist/aos.css";
 import CommonSection from "../CommonSection/CommonSection";
 
 const Offers = [

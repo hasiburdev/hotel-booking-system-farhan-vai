@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 
 import Aos from "aos";
-import "aos/dist/aos.css";
 import { BsArrowLeftShort, BsArrowRightShort, BsDot } from "react-icons/bs";
 import img1 from "../../assets/Bali.jpg";
 import img2 from "../../assets/calofonia.webp";

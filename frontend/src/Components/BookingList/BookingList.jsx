@@ -1,10 +1,40 @@
 import { Table } from "reactstrap";
+import "./BookingList.css";
 import useFetch from "../../hooks/useFetch";
 import { useState } from "react";
 import { BASE_URL } from "../../utils/config";
+import { FaSpinner, FaTrash } from "react-icons/fa";
+import { postData } from "../../utils/api";
+import { toast } from "react-toastify";
+
+const DeleteButton = ({ id, fetchData}) => {
+  const [loadingDelete, setLoadingDelete] = useState(false);
+
+  const handleDelete = async (id) => {
+    setLoadingDelete(true);
+    try {
+      const response = await postData(`${BASE_URL}/booking/delete/${id}`, {});
+      console.log(response);
+      toast.success("Booking Deleted Successfully");
+    } catch (error) {
+      console.log(error);
+      toast.error("Something went wrong");
+    } finally {
+      setLoadingDelete(false);
+      fetchData();
+    }
+  };
+  return (
+    <div onClick={() =>handleDelete(id)}>
+      {loadingDelete ? <FaSpinner /> : <FaTrash />}
+    </div>
+  );
+};
+
 const BookingList = () => {
-  //   const [state, setState] = useState([]);
-  const { data, error, loading } = useFetch(`${BASE_URL}/booking`);
+  // const [loadingDelete, setLoadingDelete] = useState(false);
+  const { data, error, loading, fetchData } = useFetch(`${BASE_URL}/booking`);
+  console.log(data);
   return (
     <>
       <h1 className="text-center my-4">All Booking History</h1>
@@ -18,12 +48,13 @@ const BookingList = () => {
             <th>Amount</th>
             <th>Booking Time</th>
             <th>Receipt Url</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
           {data &&
             data.map((booking, index) => (
-              <tr>
+              <tr key={index}>
                 <th scope="row">{index + 1}</th>
                 <td>{booking.userEmail}</td>
                 <td>{booking.hotelName}</td>
@@ -32,6 +63,9 @@ const BookingList = () => {
                 <td>{new Date(booking.bookAt).toDateString()}</td>
                 <td>
                   <a href={booking.receipt_url}>View Receipt</a>
+                </td>
+                <td className="booking-list-delete-button">
+                  <DeleteButton id={booking._id} fetchData={fetchData}/>
                 </td>
               </tr>
             ))}

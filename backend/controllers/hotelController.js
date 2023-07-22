@@ -78,7 +78,7 @@ export const getSingleHotel = async (req, res) => {
 //getAll Hotels
 export const getAllHotels = async (req, res) => {
   console.log(req.query);
-  if (req.query.length <= 0) {
+  if (Object.keys(req.query).length <= 0) {
     const page = parseInt(req.query.page);
 
     try {
