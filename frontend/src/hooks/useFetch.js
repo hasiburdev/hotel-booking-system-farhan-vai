@@ -1,5 +1,5 @@
-import { fi } from "date-fns/locale";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+import { getData } from "../utils/api";
 
 const useFetch = (url) => {
   const [data, setData] = useState([]);
@@ -9,7 +9,7 @@ const useFetch = (url) => {
   const fetchData = async () => {
     setLoading(true);
     try {
-      const res = await fetch(url);
+      const res = await getData(url)
       if (!res.ok) {
         setError("failed to fetch");
         alert("failed to fetch");
@@ -22,9 +22,11 @@ const useFetch = (url) => {
       setLoading(false);
     }
   };
+
   useEffect(() => {
     fetchData();
   }, [url]);
+
   return {
     data,
     error,

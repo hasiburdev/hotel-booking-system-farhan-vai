@@ -12,7 +12,7 @@ const Navbar = () => {
   //toggle
   const [active, setActive] = useState("navBar");
   const showNav = () => {
-    setActive("navBar  activeNavbar");
+    setActive("navBar activeNavbar");
   };
 
   //remove navbar
@@ -60,12 +60,7 @@ const Navbar = () => {
               </Link>{" "}
             </li>
             <li className="navItem">
-              <Link to="/offer" className="navLink">
-                Packages
-              </Link>{" "}
-            </li>
-            <li className="navItem">
-              <Link to="/hotelList" className="navLink">
+              <Link to="/hotels" className="navLink">
                 Hotels
               </Link>{" "}
             </li>

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import "./offer.css";
+import "./Offers.css";
 import { MdKingBed, MdBathtub } from "react-icons/md";
 import { FaWifi } from "react-icons/fa";
 import { MdAirportShuttle } from "react-icons/md";
@@ -11,7 +11,7 @@ import img1 from "../../assets/Bali.jpg";
 import img2 from "../../assets/Bali.jpg";
 
 import Aos from "aos";
-import CommonSection from "../CommonSection/CommonSection";
+import CommonSection from "../../Components/CommonSection/CommonSection";
 
 const Offers = [
   {

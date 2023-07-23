@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Container, Row, Col } from "reactstrap";
-import CommonSection from "../Components/CommonSection/CommonSection";
-import Room from "../Components/Room/Room";
+import CommonSection from "../src/Components/CommonSection/CommonSection";
+import Room from "../src/Components/Room/Room";
 
 const SerachResultList = () => {
   const location = useLocation();

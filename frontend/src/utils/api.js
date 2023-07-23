@@ -9,8 +9,6 @@ export const postData = async (url = "", data = {}) => {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     }),
-    redirect: "follow",
-    referrerPolicy: "no-referrer",
     body: JSON.stringify({ ...data }),
   });
   return response.json();
@@ -24,5 +22,5 @@ export const getData = async (url = "") => {
       Authorization: `Bearer ${token}`,
     }),
   });
-  return response.json();
+  return response;
 };

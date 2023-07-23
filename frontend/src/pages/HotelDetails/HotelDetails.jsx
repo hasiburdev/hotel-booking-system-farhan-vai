@@ -1,17 +1,15 @@
-import "./hotel.css";
-import Navbar from "../../Components/Navbar/Navbar";
-
-import Footer from "../../Components/Footer/Footer";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import CommonSection from "../../Components/CommonSection/CommonSection";
 import {
   faCircleArrowLeft,
   faCircleArrowRight,
   faCircleXmark,
   faLocationDot,
 } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import CommonSection from "../../Components/CommonSection/CommonSection";
+import Navbar from "../../Components/Navbar/Navbar";
+import "./HotelDetails.css";
 
 const Hotel = () => {
   const navigate = useNavigate();

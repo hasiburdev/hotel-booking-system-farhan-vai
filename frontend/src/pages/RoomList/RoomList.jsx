@@ -1,18 +1,17 @@
 import React, { useEffect } from "react";
-import "../Components/Offers/offer.css";
+import "../Offers/offer.css";
 import { MdKingBed, MdBathtub } from "react-icons/md";
 import { FaWifi } from "react-icons/fa";
 import { MdAirportShuttle } from "react-icons/md";
 import { MdLocationOn } from "react-icons/md";
 import { BsArrowRightShort } from "react-icons/bs";
-//
-import img from "../assets/calofonia.webp";
-import img1 from "../assets/calofonia.webp";
-import img2 from "../assets/calofonia.webp";
+import img from "../../assets/calofonia.webp";
+import img1 from "../../assets/calofonia.webp";
+import img2 from "../../assets/calofonia.webp";
 
 import Aos from "aos";
-import useFetch from "../hooks/useFetch";
-import { BASE_URL } from "../utils/config";
+import useFetch from "../../hooks/useFetch";
+import { BASE_URL } from "../../utils/config";
 import { Alert } from "reactstrap";
 
 const Offers = [

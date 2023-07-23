@@ -4,9 +4,9 @@ import { useLocation } from "react-router-dom";
 import { useState } from "react";
 import { format } from "date-fns";
 import { DateRange } from "react-date-range";
-import SearchItem from "../../Components/searchItem/SearchItem";
-import Navbar from "../../Components/Navbar/Navbar";
-import CommonSection from "../../Components/CommonSection/CommonSection";
+import SearchItem from "../../src/Components/searchItem/SearchItem";
+import Navbar from "../../src/Components/Navbar/Navbar";
+import CommonSection from "../../src/Components/CommonSection/CommonSection";
 
 const List = () => {
   const location = useLocation();

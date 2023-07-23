@@ -3,10 +3,12 @@ import { AiFillStar } from "react-icons/ai";
 import { BiDollar, BiGroup } from "react-icons/bi";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 import { Alert, Col, Container, Form, ListGroup, Row } from "reactstrap";
 import Book from "../../Components/Book/Book";
 import CommonSection from "../../Components/CommonSection/CommonSection";
 import avater from "../../assets/Bali.jpg";
+import { postData } from "../../utils/api";
 import calcuateAvgRating from "../../utils/avgRating";
 import { BASE_URL } from "../../utils/config";
 import "./Details.css";
@@ -49,10 +51,20 @@ const Details = () => {
     year: "numeric",
   };
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
     const reviewText = reviewMsgRef.current.value;
-    alert(`${reviewText}, ${hotelRating}`);
+
+    try {
+      const data = await postData(`${BASE_URL}/review/${id}`, {
+        reviewText,
+        rating: hotelRating,
+      });
+      console.log(data);
+      toast.success("Review added successfully");
+    } catch (error) {
+      toast.error("Something went wrong");
+    }
   };
   return (
     <>
@@ -104,11 +116,9 @@ const Details = () => {
                   <Form onSubmit={submitHandler}>
                     <div className="d-flex align-items-center gap-3 mb-4 rating_group">
                       <span onClick={() => setHotelRating(1)}>
-                        {" "}
                         <AiFillStar />
                       </span>
                       <span onClick={() => setHotelRating(2)}>
-                        {" "}
                         <AiFillStar />
                       </span>
                       <span onClick={() => setHotelRating(3)}>
@@ -143,26 +153,26 @@ const Details = () => {
                     {reviews?.map((review) => (
                       <div className="review_item">
                         <img src={avater} alt="" />
-                        <pre>{JSON.stringify(review)}</pre>
+                        <pre></pre>
                         <div className="w-100">
                           <div className="d-flex align-items-center justify-content-between">
                             <div>
                               {" "}
-                              <h5>Masud</h5>
+                              <h5>{review.username ?? "User"}</h5>
                             </div>
                             <p>
                               {" "}
-                              {new Date("06-18-2023").toLocaleDateString(
+                              {new Date(review.createdAt).toLocaleDateString(
                                 "en-US",
                                 options
                               )}
                             </p>
                           </div>
                           <span className="d-flex align-items-center">
-                            5 <AiFillStar />
+                            {review.rating} <AiFillStar />
                           </span>
                         </div>
-                        <h6> amazing hotel </h6>
+                        <h6>{review.reviewText}</h6>
                       </div>
                     ))}
                   </ListGroup>

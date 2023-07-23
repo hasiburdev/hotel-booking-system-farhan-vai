@@ -1,38 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { Alert, Container, Row, Col } from "reactstrap";
-import Data from "../../assets/Data/tours";
-import CommonSection from "../CommonSection/CommonSection";
-import Navbar from "../Navbar/Navbar";
-import Room from "./Room";
-import { BASE_URL } from "../../utils/config";
+import React from "react";
 import { useSearchParams } from "react-router-dom";
+import { Alert, Col, Container, Row } from "reactstrap";
+import CommonSection from "../../Components/CommonSection/CommonSection";
+import Navbar from "../../Components/Navbar/Navbar";
+import Room from "../../Components/Room/Room";
 import useFetch from "../../hooks/useFetch";
+import { BASE_URL } from "../../utils/config";
 
 const RoomList = () => {
   const searchParams = useSearchParams();
-  console.log(searchParams[0].toString());
+  const url = `${BASE_URL}/hotels?${searchParams[0].toString()}`;
 
-  //Fetch data here
-  const { data, error, loading } = useFetch(
-    `${BASE_URL}/hotels?${searchParams[0].toString()}`
-  );
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await fetch(
-  //         `${BASE_URL}/hotels?${searchParams[0].toString()}`
-  //       );
-  //       const data = await response.json();
-  //       setHotelList(data.data);
-  //       console.log(data);
-  //     } catch (error) {
-  //       console.error(error);
-  //       setIsError(true);
-  //     }
-  //   };
-  //   fetchData();
-  // }, []);
+  const { data, error, loading } = useFetch(url);
 
   return (
     <>
