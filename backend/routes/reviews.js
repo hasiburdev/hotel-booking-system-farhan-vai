@@ -1,9 +1,14 @@
 import express from "express";
-import { verifyUser } from "../utils/verifyToken.js";
-import { createReview } from "../controllers/reviewController.js";
+import { verifyToken, verifyUser } from "../utils/verifyToken.js";
+import {
+  createReview,
+  getAllReviews,
+} from "../controllers/reviewController.js";
 
 const router = express.Router();
 
-router.post("/:hotelId", verifyUser, createReview);
+router.post("/:hotelId", verifyToken, verifyUser, createReview);
+
+router.get("/:hotelId", getAllReviews);
 
 export default router;
