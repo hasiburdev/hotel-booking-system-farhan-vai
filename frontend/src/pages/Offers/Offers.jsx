@@ -1,17 +1,20 @@
-import React, { useEffect } from "react";
-import "./Offers.css";
-import { MdKingBed, MdBathtub } from "react-icons/md";
-import { FaWifi } from "react-icons/fa";
-import { MdAirportShuttle } from "react-icons/md";
-import { MdLocationOn } from "react-icons/md";
-import { BsArrowRightShort } from "react-icons/bs";
-//
-import img from "../../assets/Bali.jpg";
-import img1 from "../../assets/Bali.jpg";
-import img2 from "../../assets/Bali.jpg";
-
 import Aos from "aos";
+import React, { useEffect } from "react";
+import { BsArrowRightShort } from "react-icons/bs";
+import { FaWifi } from "react-icons/fa";
+import {
+  MdAirportShuttle,
+  MdBathtub,
+  MdKingBed,
+  MdLocationOn,
+} from "react-icons/md";
 import CommonSection from "../../Components/CommonSection/CommonSection";
+import {
+  default as img,
+  default as img1,
+  default as img2,
+} from "../../assets/Bali.jpg";
+import "./Offers.scss";
 
 const Offers = [
   {
@@ -97,7 +100,6 @@ const Offer = () => {
                       <small className="location">{location}</small>
                     </div>
                     <button className="btn flex">
-                      {" "}
                       View Details
                       <BsArrowRightShort className="icon" />
                     </button>

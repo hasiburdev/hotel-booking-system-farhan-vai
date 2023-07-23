@@ -1,47 +1,22 @@
-import React, { useEffect } from "react";
-import "../Offers/offer.css";
-import { MdKingBed, MdBathtub } from "react-icons/md";
-import { FaWifi } from "react-icons/fa";
-import { MdAirportShuttle } from "react-icons/md";
-import { MdLocationOn } from "react-icons/md";
-import { BsArrowRightShort } from "react-icons/bs";
-import img from "../../assets/calofonia.webp";
-import img1 from "../../assets/calofonia.webp";
-import img2 from "../../assets/calofonia.webp";
-
 import Aos from "aos";
+import React, { useEffect, useState } from "react";
+import { BsArrowRightShort } from "react-icons/bs";
+import { FaWifi } from "react-icons/fa";
+import {
+  MdAirportShuttle,
+  MdBathtub,
+  MdKingBed,
+  MdLocationOn,
+} from "react-icons/md";
+import { Link, useParams } from "react-router-dom";
+import { Alert } from "reactstrap";
 import useFetch from "../../hooks/useFetch";
 import { BASE_URL } from "../../utils/config";
-import { Alert } from "reactstrap";
+import PayWithStripe from "../../Components/PayWithStripe/PayWithStripe";
 
-const Offers = [
-  {
-    id: 5,
-    imgSrc: img,
-    destTitle: "Windsor Court Hotel",
-    location: "United State",
-    price: "$400",
-    bednumber: "Double bed",
-  },
-  {
-    id: 5,
-    imgSrc: img1,
-    destTitle: "Windsor Court Hotel",
-    location: "United State",
-    price: "$300",
-    bednumber: "Single bed",
-  },
-  {
-    id: 5,
-    imgSrc: img2,
-    destTitle: "Windsor Court Hotel",
-    location: "United State",
-    price: "$200",
-    bednumber: "Double bed (seaview)",
-  },
-];
-
-const Roomsitems = () => {
+const RoomList = () => {
+  const { hotelId } = useParams();
+  const [modal, setModal] = useState(false);
   const { data, error, loading } = useFetch(`${BASE_URL}/rooms`);
   useEffect(() => {
     Aos.init({
@@ -66,7 +41,16 @@ const Roomsitems = () => {
           )}
           {data &&
             data.map(
-              ({ _id: id, photo, destTitle, location, price, bednumber }) => {
+              ({
+                _id: id,
+                photo,
+                title,
+                destTitle,
+                location,
+                price,
+                bednumber,
+                maxGroupSize,
+              }) => {
                 return (
                   <div
                     data-aos="fade-up"
@@ -76,11 +60,11 @@ const Roomsitems = () => {
                   >
                     <div className="destImage">
                       <img src={photo} alt={destTitle} />
-                      {/* <span className="discount">
-            30% off
-            </span> */}
                     </div>
                     <div className="offerBody">
+                      <Link to={`/rooms/${hotelId}/${id}`}>
+                        <h4>{title}</h4>
+                      </Link>
                       <div className="price flex">
                         <h4>{price}</h4>
                         <span className="status">Available</span>
@@ -107,11 +91,20 @@ const Roomsitems = () => {
                         <MdLocationOn className="icon" />
                         <small className="location">{location}</small>
                       </div>
-                      <button className="btn flex">
-                        {" "}
-                        View Details
+                      <button
+                        className="btn flex"
+                        onClick={() => setModal(!modal)}
+                      >
+                        Book Now
                         <BsArrowRightShort className="icon" />
                       </button>
+                      <PayWithStripe
+                        setModal={setModal}
+                        modal={modal}
+                        price={price}
+                        guestSize={maxGroupSize}
+                        hotelName={title}
+                      />
                     </div>
                   </div>
                 );
@@ -123,4 +116,4 @@ const Roomsitems = () => {
   );
 };
 
-export default Roomsitems;
+export default RoomList;

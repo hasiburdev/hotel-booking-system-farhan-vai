@@ -3,7 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import { Alert, Col, Container, Row } from "reactstrap";
 import CommonSection from "../../Components/CommonSection/CommonSection";
 import Navbar from "../../Components/Navbar/Navbar";
-import Room from "../../Components/Room/Room";
+import HotelCard from "../../Components/HotelCard/HotelCard";
 import useFetch from "../../hooks/useFetch";
 import { BASE_URL } from "../../utils/config";
 
@@ -36,9 +36,9 @@ const RoomList = () => {
               </Alert>
             )}
             {data &&
-              data?.map((tour, index) => (
+              data?.map((hotel, index) => (
                 <Col lg="3" className="mb-4" key={index}>
-                  <Room tour={tour} />
+                  <HotelCard hotel={hotel} />
                 </Col>
               ))}
           </Row>

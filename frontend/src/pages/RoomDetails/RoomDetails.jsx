@@ -11,16 +11,16 @@ import avater from "../../assets/Bali.jpg";
 import { postData } from "../../utils/api";
 import calcuateAvgRating from "../../utils/avgRating";
 import { BASE_URL } from "../../utils/config";
-import "./Details.css";
+import "./RoomDetails.scss";
 
 const Details = () => {
-  const { id } = useParams();
+  const { hotelId, roomId } = useParams();
   const reviewMsgRef = useRef("");
   const [hotelDetails, setHotelDetails] = useState(null);
 
   useEffect(() => {
     const getHotelDetails = async () => {
-      const response = await fetch(`${BASE_URL}/hotels/${id}`);
+      const response = await fetch(`${BASE_URL}/hotels/${hotelId}`);
       const data = await response.json();
       console.log(data);
       setHotelDetails(data.data);
@@ -56,7 +56,7 @@ const Details = () => {
     const reviewText = reviewMsgRef.current.value;
 
     try {
-      const data = await postData(`${BASE_URL}/review/${id}`, {
+      const data = await postData(`${BASE_URL}/review/${hotelId}`, {
         reviewText,
         rating: hotelRating,
       });
@@ -96,16 +96,13 @@ const Details = () => {
                   </div>
                   <div className="extra_details">
                     <span>
-                      {" "}
-                      <FaMapMarkerAlt /> {city}{" "}
+                      <FaMapMarkerAlt /> {city}
                     </span>
                     <span>
-                      {" "}
-                      <BiDollar /> {price}{" "}
+                      <BiDollar /> {price}
                     </span>
                     <span>
-                      {" "}
-                      <BiGroup /> {maxGroupSize}{" "}
+                      <BiGroup /> {maxGroupSize}
                     </span>
                   </div>
                   <h5>Description</h5>

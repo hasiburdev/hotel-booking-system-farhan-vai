@@ -5,6 +5,8 @@ import { postData } from "../../utils/api";
 import { BASE_URL } from "../../utils/config";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import "./PayWithStripe.scss"
+
 const PayWithStripe = ({ price, modal, setModal, guestSize, hotelName }) => {
   const navigate = useNavigate();
   const handleToggle = () => setModal((prevState) => !prevState);
@@ -34,11 +36,10 @@ const PayWithStripe = ({ price, modal, setModal, guestSize, hotelName }) => {
       <Modal centered isOpen={modal} toggle={handleToggle}>
         <ModalHeader toggle={handleToggle}>Complete your Payment</ModalHeader>
         <ModalBody>
-          <h2 class="text-center">Your total Price is: ${price}</h2>
+          <h2 className="text-center">Your total Price is: ${price}</h2>
         </ModalBody>
         <ModalFooter>
           <StripeCheckout
-            // token={this.onToken}
             stripeKey="pk_test_51LwTKSL6eDW1c9Y4lb8BBNrLgvdafmKaabjCeMPprnG9sGWLXv0KtdhOueSOo5GCZrkmyx5oCsLlZ7bTN4Wnr75u00zs1LSFHb"
             amount={price * 100}
             label="Complete Payment"

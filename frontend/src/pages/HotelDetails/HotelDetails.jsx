@@ -9,7 +9,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CommonSection from "../../Components/CommonSection/CommonSection";
 import Navbar from "../../Components/Navbar/Navbar";
-import "./HotelDetails.css";
+import "./HotelDetails.scss";
 
 const Hotel = () => {
   const navigate = useNavigate();
