@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { BASE_URL } from "../../utils/config";
 import { postData } from "../../utils/api";
+import useFetch from "../../hooks/useFetch";
 import {
   Form,
   FormGroup,
@@ -15,9 +16,10 @@ import { toast } from "react-toastify";
 import { Navigate, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 
-const AddHotel = () => {
+const AddRoom = () => {
   const { user } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
+  const [hotelId, setHotelId] = useState("");
   const [state, setState] = useState({
     title: "",
     city: "",
@@ -28,16 +30,31 @@ const AddHotel = () => {
     price: 0,
     maxGroupSize: 0,
     featured: false,
+    bathroom: 0,
+    bedroom: "Single",
+    wifi: false,
+    shuttle: false,
   });
   const navigate = useNavigate();
+
+  const { data, loading, error } = useFetch(`${BASE_URL}/hotels`);
 
   if (user.role !== "admin") {
     // return navigate("/dashboard/my-bookings");
     return <Navigate to="/dashboard/my-bookings" />;
   }
 
+  const handleSelectHotel = (e) => {
+    setHotelId(e.target.value);
+    console.log(e.target.value);
+  };
+
   const handleChange = (e) => {
-    if (e.target.id === "featured") {
+    if (
+      e.target.id === "featured" ||
+      e.target.id === "wifi" ||
+      e.target.id === "shuttle"
+    ) {
       setState((prevState) => ({
         ...prevState,
         [e.target.id]: e.target.checked,
@@ -64,7 +81,7 @@ const AddHotel = () => {
     setIsLoading(true);
     console.log(state);
     try {
-      const data = await postData(`${BASE_URL}/hotels`, state);
+      const data = await postData(`${BASE_URL}/rooms`, state);
       if (data?.successs) {
         toast.success("Successfully added hotel!");
         navigate("/hotelList");
@@ -81,7 +98,29 @@ const AddHotel = () => {
   };
   return (
     <Form onSubmit={handleSubmit}>
-      <h1 className="text-center mb-4">Add a new Hotel</h1>
+      <h1 className="text-center mb-4">Add a new Room</h1>
+      <FormGroup row>
+        <Label for="bathroom" sm={2}>
+          Select Hotel
+        </Label>
+        <Col sm={10}>
+          <Input
+            defaultValue={""}
+            id="hotelId"
+            name="hotelId"
+            type="select"
+            onChange={handleChange}
+          >
+            {/* <option selected>Single</option>
+            <option>Double</option> */}
+            <option></option>
+            {data?.length > 0 &&
+              data.map((hotel) => (
+                <option value={hotel._id}>{hotel.title}</option>
+              ))}
+          </Input>
+        </Col>
+      </FormGroup>
       <FormGroup row>
         <Label for="title" sm={2}>
           Title
@@ -108,6 +147,86 @@ const AddHotel = () => {
             type="textarea"
             placeholder="Enter description"
           />
+        </Col>
+      </FormGroup>
+      <FormGroup row>
+        <Label for="bathroom" sm={2}>
+          Bed Size
+        </Label>
+        <Col sm={10}>
+          <Input
+            defaultValue={"Single"}
+            id="bedSize"
+            name="bedSize"
+            type="select"
+            onChange={handleChange}
+          >
+            <option selected>Single</option>
+            <option>Double</option>
+          </Input>
+        </Col>
+      </FormGroup>
+      <FormGroup row>
+        <Label for="bathroom" sm={2}>
+          Bathroom
+        </Label>
+        <Col sm={10}>
+          <Input
+            id="bathroom"
+            name="bathroom"
+            type="select"
+            onChange={handleChange}
+            defaultValue={1}
+          >
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+          </Input>
+        </Col>
+      </FormGroup>
+      <FormGroup row>
+        <Label for="wifi" sm={2}>
+          WiFi
+        </Label>
+        <Col
+          sm={{
+            size: 10,
+          }}
+        >
+          <FormGroup check>
+            <Input
+              id="wifi"
+              name="wifi"
+              type="checkbox"
+              onChange={handleChange}
+            />
+            <Label check htmlFor="wifi">
+              Add WiFi
+            </Label>
+          </FormGroup>
+        </Col>
+      </FormGroup>
+      <FormGroup row>
+        <Label for="shuttle" sm={2}>
+          Shuttle
+        </Label>
+        <Col
+          sm={{
+            size: 10,
+          }}
+        >
+          <FormGroup check>
+            <Input
+              id="shuttle"
+              name="shuttle"
+              type="checkbox"
+              onChange={handleChange}
+            />
+            <Label check htmlFor="shuttle">
+              Add Shuttle
+            </Label>
+          </FormGroup>
         </Col>
       </FormGroup>
       <FormGroup row>
@@ -195,26 +314,6 @@ const AddHotel = () => {
           <FormText>Upload a good quality picture of the hotel</FormText>
         </Col>
       </FormGroup>
-      <FormGroup row>
-        <Label for="featured" sm={2}>
-          Featured
-        </Label>
-        <Col
-          sm={{
-            size: 10,
-          }}
-        >
-          <FormGroup check>
-            <Input
-              id="featured"
-              name="featured"
-              type="checkbox"
-              onChange={handleChange}
-            />
-            <Label check>Check this</Label>
-          </FormGroup>
-        </Col>
-      </FormGroup>
       <FormGroup check row>
         <Col
           className="px-0"
@@ -232,4 +331,4 @@ const AddHotel = () => {
   );
 };
 
-export default AddHotel;
+export default AddRoom;

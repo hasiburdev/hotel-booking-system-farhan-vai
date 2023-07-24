@@ -7,6 +7,13 @@ import { json } from "express";
 export const register = async (req, res) => {
   console.log(req.body);
   try {
+    const existingUser = User.find({ email: req.body.email });
+    if (existingUser) {
+      return res.status(400).json({
+        success: false,
+        message: "User already exists",
+      });
+    }
     //hasing password
     const salt = bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync(req.body.password, salt);
@@ -82,6 +89,73 @@ export const login = async (req, res) => {
     res.status(500).json({
       success: false,
       message: "Failed to login",
+    });
+  }
+};
+
+export const signInWithGoogle = async (req, res) => {
+  try {
+    let user = await User.findOne({ email: req.body.email });
+    console.log("100", user);
+    if (!user) {
+      // return res.status(400).json({
+      //   success: false,
+      //   message: "User already exists",
+      // });
+      console.log("Inside new user");
+      const newUser = new User({
+        username: req.body.username,
+        email: req.body.email,
+        // password: hash,
+        auth: "google",
+        photo: req.body.photo,
+        role: "user",
+      });
+
+      const savedUser = await newUser.save();
+      console.log("user", savedUser);
+      const token = jwt.sign(
+        {
+          id: savedUser._id,
+          role: savedUser.role,
+        },
+        process.env.JWT_SECRET_KEY,
+        { expiresIn: "15d" }
+      );
+      //hasing password
+      // const salt = bcrypt.genSaltSync(10);
+      // const hash = bcrypt.hashSync(req.body.password, salt);
+      const { role, ...rest } = savedUser._doc;
+
+      return res.status(200).json({
+        token,
+        data: { ...rest },
+        role,
+      });
+    }
+    const token = jwt.sign(
+      {
+        id: user._id,
+        role: user.role,
+      },
+      process.env.JWT_SECRET_KEY,
+      { expiresIn: "15d" }
+    );
+    //hasing password
+    // const salt = bcrypt.genSaltSync(10);
+    // const hash = bcrypt.hashSync(req.body.password, salt);
+    const { role, ...rest } = user._doc;
+
+    res.status(200).json({
+      token,
+      data: { ...rest },
+      role,
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      success: false,
+      message: "Failed to create try again later",
     });
   }
 };

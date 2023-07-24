@@ -40,8 +40,8 @@ const HotelCard = ({ hotel }) => {
           {" "}
           <Link to={`/hotels/${id}`}>{title}</Link>
         </h5>
-        <div className="card_bottom d-flex align-items-center ustify-content-between mt-3 offerBody price flex">
-          <h5>{price}</h5>
+        <div className="card_bottom d-flex align-items-center justify-content-start mt-3 offerBody price flex">
+          {/* <h5>{price}</h5> */}
           <Link to={`/rooms/${id}`}>
             <button className=" btn flex">View Rooms</button>
           </Link>

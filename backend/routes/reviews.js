@@ -7,7 +7,7 @@ import {
 
 const router = express.Router();
 
-router.post("/:hotelId", verifyToken, verifyUser, createReview);
+router.post("/:id", verifyToken, verifyUser, createReview);
 
 router.get("/:hotelId", getAllReviews);
 

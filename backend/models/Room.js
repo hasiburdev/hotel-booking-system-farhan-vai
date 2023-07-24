@@ -35,14 +35,20 @@ const roomSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-
+    wifi: Boolean,
+    shuttle: Boolean,
+    bedSize: String,
+    bathroom: Number,
     reviews: [
       {
         type: mongoose.Types.ObjectId,
         ref: "Review",
       },
     ],
-
+    hotelId: {
+      type: mongoose.Types.ObjectId,
+      ref: "Hotel",
+    },
     featured: {
       type: Boolean,
       default: false,

@@ -1,6 +1,9 @@
 import Hotel from "../models/Hotel.js";
 
 export const createHotel = async (req, res) => {
+  console.log(req.body);
+  console.log(req.files);
+  // return res.send("Hello,this is auth register");
   const newHotel = new Hotel(req.body);
   try {
     const savedHotel = await newHotel.save();
@@ -106,7 +109,7 @@ export const getAllHotels = async (req, res) => {
       const hotels = await Hotel.find({
         city,
         distance: { $gte: distance },
-        maxGroupSize: { $gte: maxGroupSize },
+        maxGroupSize: { $gte: maxGroupSize - 3, $lte: maxGroupSize + 3 },
       }).populate("reviews");
 
       res.status(200).json({

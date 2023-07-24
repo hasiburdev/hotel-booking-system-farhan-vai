@@ -10,6 +10,8 @@ import paymentRoute from "./routes/payment.js";
 import reviewRoute from "./routes/reviews.js";
 import roomRoute from "./routes/rooms.js";
 import userRoute from "./routes/users.js";
+// import fileupload from "express-fileupload";
+import multer from "multer";
 
 const app = express();
 // const SSLCommerzPayment = require('sslcommerz-lts')
@@ -45,9 +47,13 @@ app.get("/", (req, res) => {
   res.send("Hello!");
 });
 
-app.use(express.json());
+// app.use(express.json());
+app.use(express.json({ limit: "50mb" }));
+app.use(express.urlencoded({ limit: "50mb" }));
 app.use(cors(corsOptions));
 app.use(cookieParser());
+// app.use(fileupload());
+// app.use(multer());
 
 app.use("/api/v1/rooms", roomRoute);
 app.use("/api/v1/hotels", hotelRoute);

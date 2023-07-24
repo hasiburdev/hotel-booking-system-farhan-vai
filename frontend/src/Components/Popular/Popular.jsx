@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-
 import Aos from "aos";
 import { BsArrowLeftShort, BsArrowRightShort, BsDot } from "react-icons/bs";
 import img1 from "../../assets/Bali.jpg";
@@ -7,6 +6,9 @@ import img2 from "../../assets/calofonia.webp";
 import img3 from "../../assets/img3.webp";
 import img4 from "../../assets/img4.webp";
 import "./popular.css";
+import useFetch from "../../hooks/useFetch";
+import { BASE_URL } from "../../utils/config";
+import { Link } from "react-router-dom";
 
 const Data = [
   {
@@ -54,6 +56,8 @@ const Data = [
 ];
 
 const Popular = () => {
+  const { data, loading, error } = useFetch(`${BASE_URL}/hotels/`);
+  console.log(data);
   useEffect(() => {
     Aos.init({
       duration: 2000,
@@ -81,37 +85,43 @@ const Popular = () => {
           </div>
         </div>
         <div className="mainContent grid">
-          {Data.map(
-            ({ id, imgSrc, destTitle, location, address, grade }, index) => {
-              return (
-                <div
-                  data-aos="fade-up"
-                  className="singleDestination"
-                  key={index}
-                >
-                  <div className="destImage">
-                    <img src={imgSrc} alt="title" />
-                    <div className="overlayInfo">
-                      <h3>{destTitle}</h3>
-                      <p>{address}</p>
-                      <BsArrowRightShort className="icon" />
+          {error && !loading && <div>{error}</div>}
+          {!error && loading && <div>Loading...</div>}
+          {data &&
+            data
+              .slice(0, 4)
+              .map(({ _id: id, photo, title, city, address }, index) => {
+                return (
+                  <div
+                    data-aos="fade-up"
+                    className="singleDestination"
+                    key={index}
+                  >
+                    <div className="destImage">
+                      <img src={photo} alt="title" />
+                      <div className="overlayInfo">
+                        <h3>{title}</h3>
+                        <p>{address}</p>
+
+                        <Link to={`hotels/${id}`}>
+                          <BsArrowRightShort className="icon" />
+                        </Link>
+                      </div>
                     </div>
-                  </div>
-                  <div className="destFooter">
-                    <div className="number">{id}</div>
-                    <div className="destText flex ">
-                      <h6>{location}</h6>
-                      <span className="flex">
-                        <span className="dot">
-                          <BsDot className="icon" />
+                    <div className="destFooter">
+                      {/* <div className="number">{id}</div> */}
+                      <div className="destText flex ">
+                        <h6>{city}</h6>
+                        <span className="flex">
+                          <span className="dot">
+                            <BsDot className="icon" />
+                          </span>
                         </span>
-                      </span>
+                      </div>
                     </div>
                   </div>
-                </div>
-              );
-            }
-          )}
+                );
+              })}
         </div>
       </div>
     </section>

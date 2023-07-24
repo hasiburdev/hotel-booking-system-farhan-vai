@@ -20,6 +20,9 @@ const router = express.Router();
 // res.send("Hello,this is auth register")
 // })
 
+import multer from "multer";
+const upload = multer();
+
 //create hotel
 router.post("/", verifyToken, verifyAdmin, createHotel);
 //update hotel

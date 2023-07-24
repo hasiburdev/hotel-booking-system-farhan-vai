@@ -1,6 +1,10 @@
 import express from "express";
-import { login, register } from "../controllers/authController.js";
-const router  = express.Router ();
+import {
+  login,
+  register,
+  signInWithGoogle,
+} from "../controllers/authController.js";
+const router = express.Router();
 // router.get("/", (req,res)=>{
 // res.send("Hello,this is auth")
 // })
@@ -8,7 +12,7 @@ const router  = express.Router ();
 // res.send("Hello,this is auth register")
 // })
 
-
-router.post("/register",register)
-router.post("/login",login)
-export default router
+router.post("/register", register);
+router.post("/google", signInWithGoogle);
+router.post("/login", login);
+export default router;

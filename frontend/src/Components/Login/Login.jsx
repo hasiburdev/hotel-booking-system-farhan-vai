@@ -9,6 +9,7 @@ import { postData } from "../../utils/api";
 import { BASE_URL } from "../../utils/config";
 import { setCookie } from "../../utils/cookie";
 import useAuth from "../../hooks/useAuth";
+import GoogleOauth from "../GoogleOauth/GoogleOauth";
 
 const Login = () => {
   const [credentials, setCredentials] = useState({
@@ -18,7 +19,7 @@ const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const navigate = useNavigate();
-  const {user, updateUser} = useAuth();
+  const { user, updateUser } = useAuth();
 
   const handleChange = (e) => {
     setCredentials((prev) => ({ ...prev, [e.target.id]: e.target.value }));
@@ -31,10 +32,9 @@ const Login = () => {
     try {
       const data = await postData(`${BASE_URL}/auth/login`, credentials);
       console.log(data);
-      console.log()
       // setCookie('accessToken', data.token)
       // localStorage.setItem("authHotelBooking", JSON.stringify(data));
-      updateUser(data)
+      updateUser(data);
       if (data.token) {
         navigate("/");
       } else {
@@ -70,6 +70,7 @@ const Login = () => {
                   </div>
                   <h2> Login</h2>
                   <Form onSubmit={handleClick}>
+                    <GoogleOauth />
                     <FormGroup>
                       <input
                         type="email"

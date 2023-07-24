@@ -1,16 +1,26 @@
 import Room from "../models/Room.js";
+import Hotel from "../models/Hotel.js";
 
 //
 export const createRoom = async (req, res) => {
   const newRoom = new Room(req.body);
   try {
     const savedRoom = await newRoom.save();
+    console.log(savedRoom);
+
+    const hotel = await Hotel.findByIdAndUpdate(req.body.hotelId, {
+      $push: {
+        rooms: savedRoom._id,
+      },
+    });
+    console.log(hotel);
     res.status(200).json({
       success: true,
       message: "Successfully created",
       data: savedRoom,
     });
   } catch (err) {
+    console.log(err)
     res.status(500).json({
       success: false,
       message: "Failed to create Try again later",
@@ -59,7 +69,7 @@ export const deleteRoom = async (req, res) => {
 export const getSingleRoom = async (req, res) => {
   const id = req.params.id;
   try {
-    const room = await Room.findByIdAndUpdate(id);
+    const room = await Room.findById(id).populate("reviews");
 
     res.status(200).json({
       success: true,
@@ -78,9 +88,28 @@ export const getAllRoom = async (req, res) => {
   //pagination
   const page = parseInt(req.query.page);
   try {
-    const rooms = await Room.find({})
-      .skip(page * 8)
-      .limit(8);
+    const rooms = await Room.find({}).populate("reviews")
+      // .skip(page * 8)
+      // .limit(8);
+
+    res.status(200).json({
+      success: true,
+      count: rooms.length,
+      message: "Successfull",
+      data: rooms,
+    });
+  } catch (err) {
+    res.status(404).json({
+      success: false,
+      message: "Not found",
+    });
+  }
+};
+
+export const getRoomByHotelId = async (req, res) => {
+  const id = req.params.id;
+  try {
+    const rooms = await Hotel.findById(id).populate("rooms");
 
     res.status(200).json({
       success: true,

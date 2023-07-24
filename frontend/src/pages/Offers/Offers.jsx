@@ -15,6 +15,7 @@ import {
   default as img2,
 } from "../../assets/Bali.jpg";
 import "./Offers.scss";
+import PayWithStripe from "../../Components/PayWithStripe/PayWithStripe";
 
 const Offers = [
   {
@@ -22,25 +23,26 @@ const Offers = [
     imgSrc: img,
     destTitle: "Windsor Court Hotel",
     location: "United State",
-    price: "$400",
+    price: 400,
   },
   {
     id: 5,
     imgSrc: img1,
     destTitle: "Windsor Court Hotel",
     location: "United State",
-    price: "$300",
+    price: 300,
   },
   {
     id: 5,
     imgSrc: img2,
     destTitle: "Windsor Court Hotel",
     location: "United State",
-    price: "$200",
+    price: 200,
   },
 ];
 
 const Offer = () => {
+  const [modal, setModal] = React.useState(false);
   useEffect(() => {
     Aos.init({
       duration: 2000,
@@ -74,7 +76,7 @@ const Offer = () => {
                   </div>
                   <div className="offerBody">
                     <div className="price flex">
-                      <h4>{price}</h4>
+                      <h4>${price}</h4>
                       <span className="status">Available</span>
                     </div>
                     <div className="amentities flex">
@@ -99,11 +101,21 @@ const Offer = () => {
                       <MdLocationOn className="icon" />
                       <small className="location">{location}</small>
                     </div>
-                    <button className="btn flex">
-                      View Details
+                    <button
+                      className="btn flex"
+                      onClick={() => setModal(!modal)}
+                    >
+                      Book Now
                       <BsArrowRightShort className="icon" />
                     </button>
                   </div>
+                  <PayWithStripe
+                    setModal={setModal}
+                    modal={modal}
+                    price={price}
+                    guestSize={8}
+                    hotelName={destTitle}
+                  />
                 </div>
               );
             })}

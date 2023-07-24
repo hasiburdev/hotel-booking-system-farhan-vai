@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
-import { AiFillStar } from "react-icons/ai";
+import React, { useRef, useState } from "react";
+import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import { BiDollar, BiGroup } from "react-icons/bi";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { useParams } from "react-router-dom";
@@ -8,6 +8,7 @@ import { Alert, Col, Container, Form, ListGroup, Row } from "reactstrap";
 import Book from "../../Components/Book/Book";
 import CommonSection from "../../Components/CommonSection/CommonSection";
 import avater from "../../assets/Bali.jpg";
+import useFetch from "../../hooks/useFetch";
 import { postData } from "../../utils/api";
 import calcuateAvgRating from "../../utils/avgRating";
 import { BASE_URL } from "../../utils/config";
@@ -15,22 +16,15 @@ import "./RoomDetails.scss";
 
 const Details = () => {
   const { hotelId, roomId } = useParams();
+  const [hotelRating, setHotelRating] = useState(0);
   const reviewMsgRef = useRef("");
-  const [hotelDetails, setHotelDetails] = useState(null);
+  // const [hotelDetails, setHotelDetails] = useStat(null);
+  const { data, error, loading, fetchData } = useFetch(
+    `${BASE_URL}/rooms/${roomId}`
+  );
+  console.log(data);
 
-  useEffect(() => {
-    const getHotelDetails = async () => {
-      const response = await fetch(`${BASE_URL}/hotels/${hotelId}`);
-      const data = await response.json();
-      console.log(data);
-      setHotelDetails(data.data);
-    };
-    getHotelDetails();
-  }, []);
-
-  const [hotelRating, setHotelRating] = useState(null);
-
-  if (!hotelDetails) {
+  if (!data) {
     return (
       <>
         <CommonSection title={""} />
@@ -40,11 +34,10 @@ const Details = () => {
       </>
     );
   }
+
   const { photo, title, desc, price, reviews, address, city, maxGroupSize } =
-    hotelDetails;
-
+    data;
   const { totalRating, avgRating } = calcuateAvgRating(reviews);
-
   const options = {
     day: "numeric",
     month: "long",
@@ -56,11 +49,12 @@ const Details = () => {
     const reviewText = reviewMsgRef.current.value;
 
     try {
-      const data = await postData(`${BASE_URL}/review/${hotelId}`, {
+      const data = await postData(`${BASE_URL}/review/${roomId}`, {
         reviewText,
         rating: hotelRating,
       });
       console.log(data);
+      fetchData();
       toast.success("Review added successfully");
     } catch (error) {
       toast.error("Something went wrong");
@@ -88,9 +82,9 @@ const Details = () => {
                         "NotRated"
                       ) : (
                         <span> ({reviews?.length})</span>
-                      )}{" "}
+                      )}
                       <span>
-                        <FaMapMarkerAlt /> {address}{" "}
+                        <FaMapMarkerAlt /> {address}
                       </span>
                     </span>
                   </div>
@@ -113,22 +107,19 @@ const Details = () => {
                   <Form onSubmit={submitHandler}>
                     <div className="d-flex align-items-center gap-3 mb-4 rating_group">
                       <span onClick={() => setHotelRating(1)}>
-                        <AiFillStar />
+                        {hotelRating >= 1 ? <AiFillStar /> : <AiOutlineStar />}
                       </span>
                       <span onClick={() => setHotelRating(2)}>
-                        <AiFillStar />
+                        {hotelRating >= 2 ? <AiFillStar /> : <AiOutlineStar />}
                       </span>
                       <span onClick={() => setHotelRating(3)}>
-                        {" "}
-                        <AiFillStar />
+                        {hotelRating >= 3 ? <AiFillStar /> : <AiOutlineStar />}
                       </span>
                       <span onClick={() => setHotelRating(4)}>
-                        {" "}
-                        <AiFillStar />
+                        {hotelRating >= 4 ? <AiFillStar /> : <AiOutlineStar />}
                       </span>
                       <span onClick={() => setHotelRating(5)}>
-                        {" "}
-                        <AiFillStar />
+                        {hotelRating >= 5 ? <AiFillStar /> : <AiOutlineStar />}
                       </span>
                     </div>
                     <div className="review_input">
@@ -147,18 +138,16 @@ const Details = () => {
                     </div>
                   </Form>
                   <ListGroup className="user_reviews">
-                    {reviews?.map((review) => (
-                      <div className="review_item">
+                    {reviews?.map((review, index) => (
+                      <div key={index} className="review_item">
                         <img src={avater} alt="" />
                         <pre></pre>
                         <div className="w-100">
                           <div className="d-flex align-items-center justify-content-between">
                             <div>
-                              {" "}
                               <h5>{review.username ?? "User"}</h5>
                             </div>
                             <p>
-                              {" "}
                               {new Date(review.createdAt).toLocaleDateString(
                                 "en-US",
                                 options
@@ -177,7 +166,7 @@ const Details = () => {
               </div>
             </Col>
             <Col lg="4">
-              <Book tour={hotelDetails} avgRating={avgRating} />
+              <Book tour={data} avgRating={avgRating} />
             </Col>
           </Row>
         </Container>

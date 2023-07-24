@@ -5,10 +5,13 @@ import { AiFillCloseCircle } from "react-icons/ai";
 import { TbGridDots } from "react-icons/tb";
 import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
+import { useSignOut } from "react-firebase-hooks/auth";
+import { auth } from "../../utils/firebase";
 
 const Navbar = () => {
   const navigate = useNavigate();
   const { user, updateUser } = useAuth();
+  const [signOut, loading, error] = useSignOut(auth);
   //toggle
   const [active, setActive] = useState("navBar");
   const showNav = () => {
@@ -30,7 +33,8 @@ const Navbar = () => {
   };
   window.addEventListener("scroll", addBg);
 
-  const handleLogOut = () => {
+  const handleLogOut = async () => {
+    await signOut();
     updateUser("");
   };
   const handleLogin = () => {
@@ -57,12 +61,17 @@ const Navbar = () => {
             <li className="navItem">
               <Link to="/" className="navLink">
                 Home
-              </Link>{" "}
+              </Link>
+            </li>
+            <li className="navItem">
+              <Link to="/offers" className="navLink">
+                Offers
+              </Link>
             </li>
             <li className="navItem">
               <Link to="/hotels" className="navLink">
                 Hotels
-              </Link>{" "}
+              </Link>
             </li>
             <li className="navItem">
               <Link to="/contact" className="navLink">

@@ -8,6 +8,7 @@ import { BASE_URL } from "../../utils/config";
 import CommonSection from "../CommonSection/CommonSection";
 import "../Login/login.css";
 import "./register.css";
+import GoogleOauth from "../GoogleOauth/GoogleOauth";
 
 const Register = () => {
   const [credentials, setCredentials] = useState({
@@ -29,7 +30,7 @@ const Register = () => {
     try {
       const data = await postData(`${BASE_URL}/auth/register`, credentials);
       if (data.success) {
-        navigate("/");
+        navigate("/login");
       } else {
         setIsError(true);
       }
@@ -64,6 +65,7 @@ const Register = () => {
                   </div>
                   <h2> Register</h2>
                   <Form onSubmit={handleClick}>
+                    <GoogleOauth />
                     <FormGroup>
                       <input
                         type="text"
