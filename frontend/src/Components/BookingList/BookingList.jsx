@@ -47,7 +47,7 @@ const BookingList = () => {
             <th>Guest Size</th>
             <th>Amount</th>
             <th>Booking Time</th>
-            <th>Receipt Url</th>
+            {/* <th>Receipt Url</th> */}
             <th>Actions</th>
           </tr>
         </thead>
@@ -59,11 +59,11 @@ const BookingList = () => {
                 <td>{booking.userEmail}</td>
                 <td>{booking.hotelName}</td>
                 <td>{booking.guestSize}</td>
-                <td className="bold">${Math.round(booking.amount / 100)}</td>
+                <td className="bold">৳{Math.round(booking.amount / 100)}</td>
                 <td>{new Date(booking.bookAt).toDateString()}</td>
-                <td>
+                {/* <td>
                   <a href={booking.receipt_url}>View Receipt</a>
-                </td>
+                </td> */}
                 <td className="booking-list-delete-button">
                   <DeleteButton id={booking._id} fetchData={fetchData}/>
                 </td>

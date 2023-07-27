@@ -30,8 +30,14 @@ const RoomList = () => {
 
   let renderedRooms;
 
-  if (loading && !error) renderedRooms = <Alert className="mx-auto">Loading data...</Alert>;
-  if (!loading && error) renderedRooms = <Alert className="mx-auto" color="danger">{error}</Alert>;
+  if (loading && !error)
+    renderedRooms = <Alert className="mx-auto">Loading data...</Alert>;
+  if (!loading && error)
+    renderedRooms = (
+      <Alert className="mx-auto" color="danger">
+        {error}
+      </Alert>
+    );
   if (!loading && !error && data?.rooms?.length === 0)
     renderedRooms = <Alert className="mx-auto">No room found!</Alert>;
   if (!loading && !error && data?.rooms?.length > 0) {
@@ -89,13 +95,15 @@ const RoomList = () => {
                   <MdLocationOn className="icon" />
                   <small className="location">{city}</small>
                 </div>
-                <button className="btn flex" onClick={() => setModal(!modal)}>
+                <button className="btn flex" onClick={() => setModal((prevState) => prevState ? false : id)}>
                   Book Now
                   <BsArrowRightShort className="icon" />
                 </button>
+                {console.log(price)}
                 <PayWithStripe
                   setModal={setModal}
                   modal={modal}
+                  modalId={id}
                   price={price}
                   guestSize={maxGroupSize}
                   hotelName={title}

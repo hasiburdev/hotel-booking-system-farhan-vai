@@ -71,3 +71,21 @@ export const deleteBooking = async (req, res) => {
     });
   }
 };
+
+// get All bookings by user id
+export const getBookingByUserId = async (req, res) => {
+  try {
+    const books = await Booking.find({ userId: req.user._id });
+
+    res.status(200).json({
+      success: true,
+      message: "Successfull",
+      data: books,
+    });
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
+};

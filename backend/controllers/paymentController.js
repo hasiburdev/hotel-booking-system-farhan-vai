@@ -7,11 +7,11 @@ export const payment = async (req, res) => {
   try {
     const response = await stripe.charges.create({
       amount: req.body.amount,
-      currency: "usd",
-      description: "My First Test Charge (created for API docs)",
+      currency: "bdt",
+      description: req.body.hotelName ?? "",
       source: req.body.stripeToken.id,
     });
-    console.log(response);
+    console.log({ response, user: req.user, id: JSON.stringify(req.user._id) });
 
     const booking = new Booking({
       userId: req.user._id,

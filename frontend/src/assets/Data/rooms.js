@@ -13,7 +13,7 @@ const Rooms =[
         desc:'Windsor Court Hotel',
         city: 'United State',
         address: "Somewhere",
- price:'$400',
+ price:'৳400',
  reviews: [
     {
       name: "jhon doe",
@@ -31,7 +31,7 @@ const Rooms =[
         desc:'Windsor Court Hotel',
         location: 'United State',
         address: "Somewhere",
-        price:'$300',
+        price:'৳300',
         reviews: [
             {
               name: "jhon doe",
@@ -50,7 +50,7 @@ const Rooms =[
         desc:'Windsor Court Hotel',
         location: 'United State',
         address: "Somewhere",
-        price:'$200',
+        price:'৳200',
         reviews: [
             {
               name: "jhon doe",

@@ -19,21 +19,21 @@ import PayWithStripe from "../../Components/PayWithStripe/PayWithStripe";
 
 const Offers = [
   {
-    id: 5,
+    id: 1,
     imgSrc: img,
     destTitle: "Windsor Court Hotel",
     location: "United State",
     price: 400,
   },
   {
-    id: 5,
+    id: 2,
     imgSrc: img1,
     destTitle: "Windsor Court Hotel",
     location: "United State",
     price: 300,
   },
   {
-    id: 5,
+    id: 3,
     imgSrc: img2,
     destTitle: "Windsor Court Hotel",
     location: "United State",
@@ -76,7 +76,7 @@ const Offer = () => {
                   </div>
                   <div className="offerBody">
                     <div className="price flex">
-                      <h4>${price}</h4>
+                      <h4>৳{price}</h4>
                       <span className="status">Available</span>
                     </div>
                     <div className="amentities flex">
@@ -103,7 +103,9 @@ const Offer = () => {
                     </div>
                     <button
                       className="btn flex"
-                      onClick={() => setModal(!modal)}
+                      onClick={() =>
+                        setModal((prevState) => prevState ? false : id)
+                      }
                     >
                       Book Now
                       <BsArrowRightShort className="icon" />
@@ -111,6 +113,7 @@ const Offer = () => {
                   </div>
                   <PayWithStripe
                     setModal={setModal}
+                    modalId={id}
                     modal={modal}
                     price={price}
                     guestSize={8}

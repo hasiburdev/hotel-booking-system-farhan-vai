@@ -6,6 +6,7 @@ import { BASE_URL } from "../../utils/config";
 import useAuth from "../../hooks/useAuth";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import GoogleIcon from "./GoogleIcon";
 
 const GoogleOauth = () => {
   const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
@@ -39,7 +40,9 @@ const GoogleOauth = () => {
   };
   return (
     <div className="auth-button" onClick={handleSignIn}>
-      <h5>Sign in with Google</h5>
+      <h5>
+        <GoogleIcon /> <span>Sign in with Google</span>
+      </h5>
     </div>
   );
 };

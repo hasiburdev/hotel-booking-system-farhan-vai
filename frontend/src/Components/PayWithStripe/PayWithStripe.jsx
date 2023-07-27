@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import "./PayWithStripe.scss"
 
-const PayWithStripe = ({ price, modal, setModal, guestSize, hotelName }) => {
+const PayWithStripe = ({ price, modal, setModal, guestSize, hotelName, modalId = null }) => {
   const navigate = useNavigate();
   const handleToggle = () => setModal((prevState) => !prevState);
   const onToken = async (token) => {
@@ -33,10 +33,10 @@ const PayWithStripe = ({ price, modal, setModal, guestSize, hotelName }) => {
       {/* <Button color="danger" onClick={handleToggle}>
         Click Me
       </Button> */}
-      <Modal centered isOpen={modal} toggle={handleToggle}>
+      <Modal centered isOpen={modal && modalId === null ? true : modalId === modal} toggle={handleToggle}>
         <ModalHeader toggle={handleToggle}>Complete your Payment</ModalHeader>
         <ModalBody>
-          <h2 className="text-center">Your total Price is: ${price}</h2>
+          <h2 className="text-center">Your total Price is: ৳{price}</h2>
         </ModalBody>
         <ModalFooter>
           <StripeCheckout
@@ -45,6 +45,7 @@ const PayWithStripe = ({ price, modal, setModal, guestSize, hotelName }) => {
             label="Complete Payment"
             name="Hotel Booking System"
             token={onToken}
+            currency="BDT"
           />
         </ModalFooter>
       </Modal>

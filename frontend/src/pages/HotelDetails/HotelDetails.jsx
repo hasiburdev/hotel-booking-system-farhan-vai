@@ -59,7 +59,7 @@ const Hotel = () => {
             Excellent location – {data.distance}m from center
           </span>
           <span className="hotelPriceHighlight">
-            Book a stay over $114 at this property and get a free airport taxi
+            Book a stay over ৳114 at this property and get a free airport taxi
           </span>
           <div className="hotelImages">
             {/* {photos.map((photo, i) => (

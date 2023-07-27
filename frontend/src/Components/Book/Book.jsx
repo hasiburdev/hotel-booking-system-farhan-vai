@@ -32,7 +32,7 @@ const Book = ({ tour, avgRating }) => {
   return (
     <div className="booking">
       <div className="booking_top d-flex align-items-center justify-content-between">
-        <h3>${price}</h3>
+        <h3>৳{price}</h3>
 
         <span className=" hotel_rating d-flex align-items-center gap-1">
           <AiFillStar className="i" />
@@ -73,15 +73,15 @@ const Book = ({ tour, avgRating }) => {
         <ListGroup>
           <ListGroupItem className="border-0  px-0">
             <h5 className="d-flex align_item-center gap-1">Price</h5>
-            <span>${price}</span>
+            <span>৳{price}</span>
           </ListGroupItem>
           <ListGroupItem className="border-0  px-0">
             <h5> Service Charge</h5>
-            <span>${serviceFee}</span>
+            <span>৳{serviceFee}</span>
           </ListGroupItem>
           <ListGroupItem className="border-0  px-0 total">
             <h5> Total</h5>
-            <span>${totalAmount}</span>
+            <span>৳{totalAmount}</span>
           </ListGroupItem>
         </ListGroup>
         <Button className=" w-100 mt-4" onClick={handleClick}>

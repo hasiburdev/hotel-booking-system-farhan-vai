@@ -6,7 +6,7 @@ export const verifyToken = (req, res, next) => {
   if (!token) {
     return res.status(401).json({
       success: false,
-      message: "You are not authorized",
+      message: "You are not authenticated",
     });
   }
 
@@ -17,8 +17,9 @@ export const verifyToken = (req, res, next) => {
         message: "Token is invalid",
       });
     }
+    console.log("Verify Token -- User", user);
     const dbUser = await User.findById(user.id);
-    console.log(dbUser);
+    console.log("Verify Token -- Database User", dbUser);
     req.user = dbUser;
     next();
   });

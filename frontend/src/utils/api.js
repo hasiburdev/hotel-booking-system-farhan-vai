@@ -1,7 +1,6 @@
-const auth = JSON.parse(localStorage.getItem("authHotelBooking"));
-const token = auth?.token;
-
 export const postData = async (url = "", data = {}) => {
+  const auth = JSON.parse(localStorage.getItem("authHotelBooking"));
+  const token = auth?.token;
   console.log(token);
   const response = await fetch(url, {
     method: "POST",
@@ -15,6 +14,8 @@ export const postData = async (url = "", data = {}) => {
 };
 
 export const getData = async (url = "") => {
+  const auth = JSON.parse(localStorage.getItem("authHotelBooking"));
+  const token = auth?.token;
   const response = await fetch(url, {
     method: "GET",
     headers: new Headers({
