@@ -103,18 +103,23 @@ export const getAllHotels = async (req, res) => {
     }
   } else {
     try {
-      const city = new RegExp(req.query.city, "i"); //here i is case sensitive
+      const city = req.query.city;
       const distance = parseInt(req.query.distance);
       const maxGroupSize = parseInt(req.query.maxGroupSize);
-      const hotels = await Hotel.find({
+      console.log({
         city,
-        distance: { $gte: distance },
-        maxGroupSize: { $gte: maxGroupSize - 3, $lte: maxGroupSize + 3 },
+        distance,
+        maxGroupSize,
+      });
+      const hotels = await Hotel.find({
+        distance: { $gte: distance - 100, $lte: distance + 100 },
+        maxGroupSize: { $lte: maxGroupSize },
+        city: { $regex: city, $options: "i" },
       }).populate("reviews");
 
+      console.log(hotels);
       res.status(200).json({
         success: true,
-
         message: "Successfull",
         data: hotels,
       });
