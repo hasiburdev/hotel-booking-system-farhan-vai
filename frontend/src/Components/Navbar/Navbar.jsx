@@ -103,7 +103,7 @@ const Navbar = () => {
               </div>
             ) : (
               <div className="flex items-center userInfo">
-                <p className="">{user.data?.email}</p>
+                <p className="">{user?.data?.username || user?.data?.email}</p>
                 <button className="btn" onClick={handleLogOut}>
                   Log Out
                 </button>
