@@ -2,12 +2,13 @@ import User from "../models/User.js";
 //user register
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { json } from "express";
+// import { json } from "express";
 
 export const register = async (req, res) => {
   console.log(req.body);
   try {
-    const existingUser = User.find({ email: req.body.email });
+    const existingUser = await User.findOne({ email: req.body.email });
+    console.log({ existingUser });
     if (existingUser) {
       return res.status(400).json({
         success: false,

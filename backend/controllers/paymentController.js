@@ -32,6 +32,7 @@ export const payment = async (req, res) => {
       data: savedBooking,
     });
   } catch (error) {
+    console.log(error)
     res.status(500).send({
       success: false,
       message: "Payment Failed",
