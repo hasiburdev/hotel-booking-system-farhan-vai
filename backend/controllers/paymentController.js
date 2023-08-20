@@ -4,6 +4,7 @@ import Booking from "../models/Booking.js";
 dotenv.config();
 const stripe = new Stripe(process.env.STRIPE_KEY);
 export const payment = async (req, res) => {
+  console.log(req.body);
   try {
     const response = await stripe.charges.create({
       amount: req.body.amount,
@@ -22,6 +23,8 @@ export const payment = async (req, res) => {
       amount: response.amount,
       paymentId: response.id,
       receipt_url: response.receipt_url,
+      startDate: req.body.startDate,
+      endDate: req.body.endDate,
     });
 
     const savedBooking = await booking.save();
@@ -32,7 +35,7 @@ export const payment = async (req, res) => {
       data: savedBooking,
     });
   } catch (error) {
-    console.log(error)
+    console.log(error);
     res.status(500).send({
       success: false,
       message: "Payment Failed",

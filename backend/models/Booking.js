@@ -6,6 +6,14 @@ const bookingSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
     },
+    startDate: {
+      type: Date,
+      default: new Date(),
+    },
+    endDate: {
+      type: Date,
+      default: new Date(),
+    },
     userEmail: {
       type: String,
       // required: true,
@@ -18,7 +26,6 @@ const bookingSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-
     bookAt: {
       type: Date,
       required: true,
