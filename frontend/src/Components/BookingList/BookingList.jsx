@@ -7,7 +7,7 @@ import { FaSpinner, FaTrash } from "react-icons/fa";
 import { postData } from "../../utils/api";
 import { toast } from "react-toastify";
 
-const DeleteButton = ({ id, fetchData}) => {
+const DeleteButton = ({ id, fetchData }) => {
   const [loadingDelete, setLoadingDelete] = useState(false);
 
   const handleDelete = async (id) => {
@@ -25,7 +25,7 @@ const DeleteButton = ({ id, fetchData}) => {
     }
   };
   return (
-    <div onClick={() =>handleDelete(id)}>
+    <div onClick={() => handleDelete(id)}>
       {loadingDelete ? <FaSpinner /> : <FaTrash />}
     </div>
   );
@@ -46,7 +46,8 @@ const BookingList = () => {
             <th>Hotel Name</th>
             <th>Guest Size</th>
             <th>Amount</th>
-            <th>Booking Time</th>
+            <th>Check In</th>
+            <th>Check Out</th>
             {/* <th>Receipt Url</th> */}
             <th>Actions</th>
           </tr>
@@ -60,12 +61,21 @@ const BookingList = () => {
                 <td>{booking.hotelName}</td>
                 <td>{booking.guestSize}</td>
                 <td className="bold">৳{Math.round(booking.amount / 100)}</td>
-                <td>{new Date(booking.bookAt).toDateString()}</td>
+                <td>
+                  {booking.startDate !== undefined
+                    ? new Date(booking.startDate).toDateString()
+                    : "N/A"}
+                </td>
+                <td>
+                  {booking.endDate !== undefined
+                    ? new Date(booking.endDate).toDateString()
+                    : "N/A"}
+                </td>
                 {/* <td>
                   <a href={booking.receipt_url}>View Receipt</a>
                 </td> */}
                 <td className="booking-list-delete-button">
-                  <DeleteButton id={booking._id} fetchData={fetchData}/>
+                  <DeleteButton id={booking._id} fetchData={fetchData} />
                 </td>
               </tr>
             ))}

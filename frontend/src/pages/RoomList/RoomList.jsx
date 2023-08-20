@@ -2,6 +2,7 @@ import Aos from "aos";
 import React, { useEffect, useState } from "react";
 import { BsArrowRightShort } from "react-icons/bs";
 import { FaWifi } from "react-icons/fa";
+import DatePicker from "react-datepicker";
 import {
   MdAirportShuttle,
   MdBathtub,
@@ -18,6 +19,8 @@ import CommonSection from "../../Components/CommonSection/CommonSection";
 const RoomList = () => {
   const { hotelId } = useParams();
   const [modal, setModal] = useState(false);
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
   const { data, error, loading } = useFetch(
     `${BASE_URL}/rooms/hotel/${hotelId}`
   );
@@ -95,7 +98,30 @@ const RoomList = () => {
                   <MdLocationOn className="icon" />
                   <small className="location">{city}</small>
                 </div>
-                <button className="btn flex" onClick={() => setModal((prevState) => prevState ? false : id)}>
+                <div>
+                  <div>
+                    <span>Check In:</span>
+                    <DatePicker
+                      showIcon
+                      selected={startDate}
+                      onChange={(date) => setStartDate(date)}
+                    />
+                  </div>
+                  <div>
+                    <span>Check Out:</span>
+                    <DatePicker
+                      showIcon
+                      selected={endDate}
+                      onChange={(date) => setEndDate(date)}
+                    />
+                  </div>
+                </div>
+                <button
+                  className="btn flex"
+                  onClick={() =>
+                    setModal((prevState) => (prevState ? false : id))
+                  }
+                >
                   Book Now
                   <BsArrowRightShort className="icon" />
                 </button>
@@ -107,6 +133,8 @@ const RoomList = () => {
                   price={price}
                   guestSize={maxGroupSize}
                   hotelName={title}
+                  startDate={startDate}
+                  endDate={endDate}
                 />
               </div>
             </div>

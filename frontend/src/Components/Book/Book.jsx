@@ -3,6 +3,8 @@ import { AiFillStar } from "react-icons/ai";
 import { Button, ListGroup, ListGroupItem } from "reactstrap";
 import PayWithStripe from "../PayWithStripe/PayWithStripe";
 import "./book.css";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const Book = ({ tour, avgRating }) => {
   const { title, desc, price, reviews, address, city, distance, maxGroupSize } =
@@ -16,6 +18,8 @@ const Book = ({ tour, avgRating }) => {
     guestSize: 1,
     bookAt: "",
   });
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
   const handleChange = (e) => {
     setCredentials((prev) => ({ ...prev, [e.target.id]: e.target.value }));
   };
@@ -72,6 +76,32 @@ const Book = ({ tour, avgRating }) => {
       <div className="booking_bottom">
         <ListGroup>
           <ListGroupItem className="border-0  px-0">
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "stretch",
+              }}
+            >
+              <div>
+                <span>Check In:</span>
+                <DatePicker
+                  showIcon
+                  selected={startDate}
+                  onChange={(date) => setStartDate(date)}
+                />
+              </div>
+              <div>
+                <span>Check Out:</span>
+                <DatePicker
+                  showIcon
+                  selected={endDate}
+                  onChange={(date) => setEndDate(date)}
+                />
+              </div>
+            </div>
+          </ListGroupItem>
+          <ListGroupItem className="border-0  px-0">
             <h5 className="d-flex align_item-center gap-1">Price</h5>
             <span>৳{price}</span>
           </ListGroupItem>
@@ -94,6 +124,8 @@ const Book = ({ tour, avgRating }) => {
           price={totalAmount}
           guestSize={maxGroupSize}
           hotelName={title}
+          startDate={startDate}
+          endDate={endDate}
         />
       </div>
     </div>

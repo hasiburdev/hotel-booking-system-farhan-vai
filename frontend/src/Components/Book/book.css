@@ -67,7 +67,8 @@
   justify-content: space-between;
 }
 
-.booking_bottom li h5, .booking_bottom li span {
+.booking_bottom li h5,
+.booking_bottom li span {
   font-size: 1rem;
   color: rgb(98, 119, 162);
   font-weight: 500;
@@ -77,7 +78,8 @@
   margin-top: 1rem;
 }
 
-.total h5, .totalspan {
+.total h5,
+.totalspan {
   color: rgb(92, 123, 185);
   font-weight: 700 !important;
   font-size: 1.1rem !important;
@@ -89,4 +91,8 @@
 
 #guestSize {
   color: rgb(92, 123, 185);
-}/*# sourceMappingURL=book.css.map */
+} /*# sourceMappingURL=book.css.map */
+
+.check-in input {
+  width: 150px;
+}

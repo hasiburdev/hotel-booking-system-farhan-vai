@@ -5,9 +5,18 @@ import { postData } from "../../utils/api";
 import { BASE_URL } from "../../utils/config";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import "./PayWithStripe.scss"
+import "./PayWithStripe.scss";
 
-const PayWithStripe = ({ price, modal, setModal, guestSize, hotelName, modalId = null }) => {
+const PayWithStripe = ({
+  price,
+  modal,
+  setModal,
+  guestSize,
+  hotelName,
+  modalId = null,
+  startDate,
+  endDate,
+}) => {
   const navigate = useNavigate();
   const handleToggle = () => setModal((prevState) => !prevState);
   const onToken = async (token) => {
@@ -17,6 +26,8 @@ const PayWithStripe = ({ price, modal, setModal, guestSize, hotelName, modalId =
         amount: price * 100,
         guestSize,
         hotelName,
+        startDate: startDate.toISOString(),
+        endDate: endDate.toISOString(),
       });
       if (data?.success) {
         toast.success("Payment Successfull!");
@@ -33,7 +44,11 @@ const PayWithStripe = ({ price, modal, setModal, guestSize, hotelName, modalId =
       {/* <Button color="danger" onClick={handleToggle}>
         Click Me
       </Button> */}
-      <Modal centered isOpen={modal && modalId === null ? true : modalId === modal} toggle={handleToggle}>
+      <Modal
+        centered
+        isOpen={modal && modalId === null ? true : modalId === modal}
+        toggle={handleToggle}
+      >
         <ModalHeader toggle={handleToggle}>Complete your Payment</ModalHeader>
         <ModalBody>
           <h2 className="text-center">Your total Price is: ৳{price}</h2>
